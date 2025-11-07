@@ -1,0 +1,273 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Open Sans", sans-serif;
+}
+
+body {
+    background-image: url("../images/Bg2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    margin: 0;
+}
+
+
+/* 2. Container & Layout*/
+
+
+.container-signIn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+/* 3. Sign-In Box */
+.signIn-box {
+    color: #ffffff;
+    background-color: #36485d62;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: solid 0.5px rgb(51, 97, 134);
+    box-shadow: 3px 4px 10px rgba(46, 121, 182, 0.959);
+    width: 800px;
+    height: 500px;
+    padding: 2rem 2.5rem;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: solid 0.5px rgb(255, 254, 248);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+
+}
+
+/* imageLogo */
+.imageLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 50px;
+}
+
+/* 4. Form Elements */
+.username-box {
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+
+.password-box {
+    margin-bottom: 20px;
+}
+
+.username-box p,
+.password-box p {
+    margin: 0 0 0 0;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-signIn {
+    width: 600px;
+    height: 48px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    padding: 0 15px 0 40px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 10px rgba(255, 169, 99, 0.959);
+    transition: all 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.input-signIn:hover {
+    background-color: rgba(248, 206, 90, 0.301);
+    color: white;
+}
+
+.input-signIn:focus {
+    background-color: rgba(248, 206, 90, 0.301);
+    color: white;
+    border: none;
+    outline: solid 0.5px white;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+
+/* 5. Buttons*/
+
+
+.button-sign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bt-signIn {
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    width: 600px;
+    margin-bottom: 20px;
+}
+
+.button-sign button.bt-signIn {
+    background: #ffb15e;
+    background: linear-gradient(90deg, rgba(255, 177, 94, 1) 0%, rgba(237, 83, 83, 1) 100%);
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 15px 25px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    font-size: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+
+}
+
+.button-sign button.bt-signIn:hover {
+    background: #ff5c57;
+    background: linear-gradient(90deg, rgba(255, 92, 87, 1) 0%, rgba(255, 227, 84, 1) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 13px 25px rgba(0, 0, 0, 0.35);
+}
+
+.button-sign a {
+    text-decoration: none;
+    color: #fa6565;
+}
+
+.button-sign a:hover {
+    color: #ffacac;
+}
+
+
+
+
+
+/* SIGN UP */
+.container-signIn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    justify-content: right;
+}
+
+.signUp-box {
+    color: #ffffff;
+    background-color: #36485d62;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: solid 0.5px rgb(51, 97, 134);
+    box-shadow: 3px 4px 10px rgba(46, 121, 182, 0.959);
+    width: 800px;
+    height: 500px;
+    padding: 2rem 2.5rem;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: solid 0.5px rgb(255, 254, 248);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.input-signUp {
+    width: 600px;
+    height: 48px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    padding: 0 15px 0 40px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 10px #4697f3ce;
+    transition: all 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.input-signUp:hover {
+    background-color: #36485d62;
+    color: white;
+}
+
+.input-signUp:focus {
+    background-color: #36485d62;
+    color: white;
+    border: none;
+    outline: solid 0.5px white;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.bt-signUp {
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    width: 600px;
+    margin-bottom: 20px;
+}
+
+.button-sign button.bt-signUp {
+    background: #091338;
+    background: linear-gradient(90deg, rgba(9, 19, 56, 1) 0%, rgba(57, 102, 145, 1) 100%);
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 15px 25px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    font-size: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+
+}
+
+.button-sign button.bt-signUp:hover {
+    background: #396691;
+    background: linear-gradient(90deg, rgba(57, 102, 145, 1) 0%, rgba(9, 19, 56, 1) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 13px 25px rgba(0, 0, 0, 0.35);
+}
