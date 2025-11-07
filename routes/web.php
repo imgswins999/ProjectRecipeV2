@@ -9,5 +9,6 @@ Route::get('/signIn',[RecipeController::class,'signIn'])->name('signIn');
 //SignUp Form
 Route::get('/signUp',[RecipeController::class,'signUp'])->name('signUp');
 
-// หน้า RECIPE
+// หน้า RECIPE)
+Route::get('/',[RecipeController::class,'recipe']);
 Route::get('/recipe',[RecipeController::class,'recipe'])->name('recipe');

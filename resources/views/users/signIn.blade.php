@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGN IN</title>
     <link rel="stylesheet" href="{{ asset('./includes/css/signInAndSignUp.css') }}">
-
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
 
     <div class="container-signUp">
         <form>
-            <div class="signIn-box">
+            <div class="signIn-box" div data-aos="fade-down">
                 <!-- USERNAME -->
                 <div class="imageLogo">
                     <img src="{{asset('includes/images/logo4.png')}}" alt="" width="400px">
@@ -36,12 +36,15 @@
                     <div class="signUp">
                         <p>Don't have a "RecipeShare account yet? Please <a href="{{ route('signUp') }}">Sign Up</a></p>
                     </div>
-                    
                 </div>
             </div>
         </form>
     </div>
-
 </body>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 
 </html>
