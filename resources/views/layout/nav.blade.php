@@ -5,15 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'RecipeShare')</title>
-    <link rel="stylesheet" href="{{ asset('../includes/css/navbar.css') }}">
-    <nav>Hello world</nav>
+    <link rel="stylesheet" href="{{ asset('../includes/css/page.css') }}">
+
 </head>
 
 <body>
+
     <nav class="navbar">
-        <li><a href="#">RECIPE</a></li>
-        <li><a href="#">RECIPE</a></li>
-        <li><a href="#">RECIPE</a></li>
+        <div class="nav-link">
+            <li><a href="#">RECIPE</a></li>
+            <li><a href="#">POPULAR</a></li>
+            <li><a href="#">CATEGORY</a></li>
+        </div>
+
+        <div class="nav-login">
+            <li><a href="#">LOGIN</a></li>
+            <li><a href="#">REGISTER</a></li>
+        </div>
     </nav>
 
     <main>
