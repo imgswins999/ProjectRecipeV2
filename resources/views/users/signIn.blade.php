@@ -12,7 +12,8 @@
 <body>
 
     <div class="container-signUp">
-        <form>
+        <form action="{{ route('signInPost') }}" method="POST" >
+            @csrf
             <div class="signIn-box" div data-aos="fade-down">
                 <!-- USERNAME -->
                 <div class="imageLogo">
@@ -21,7 +22,7 @@
 
                 <div class="username-box">
                     <p>USERNAME</p>
-                    <input type="text" name="username" id="username" required placeholder="username / e-mail"
+                    <input type="text" name="login" required placeholder="username / email"
                         class="input-signIn">
                 </div>
                 <!-- PASSWORD -->
