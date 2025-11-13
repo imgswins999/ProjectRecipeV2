@@ -16,36 +16,40 @@ class RecipeController extends Controller
 {
     //
     // SignIn Form
-    public function signIn(){
+    public function signIn()
+    {
         return view('users.signIn');
     }
-    public function signInPost(Request $request){
+    public function signInPost(Request $request)
+    {
 
-    $request->validate([
-        'login' => 'required',       // เปลี่ยนชื่อ field เป็น login ตัวเดียว รองรับทั้ง 2 แบบ
-        'password' => 'required'
-    ]);
+        $request->validate([
+            'login' => 'required',       // เปลี่ยนชื่อ field เป็น login ตัวเดียว รองรับทั้ง 2 แบบ
+            'password' => 'required'
+        ]);
 
-    // เช็คว่าเป็น email หรือ username
-    $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        // เช็คว่าเป็น email หรือ username
+        $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-    $credentials = [
-        $loginType => $request->login,
-        'password' => $request->password
-    ];
+        $credentials = [
+            $loginType => $request->login,
+            'password' => $request->password
+        ];
 
-    if(Auth::attempt($credentials)){
-        return redirect()->intended(route('page'));
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended(route('page'));
+        }
+
+        return back()->with("error", "username or email หรือ password ไม่ถูกต้อง");
     }
 
-    return back()->with("error","username or email หรือ password ไม่ถูกต้อง");
-}
-
     //SignUp Form
-    public function signUp(){
+    public function signUp()
+    {
         return view('users.signUp');
-    } 
-    public function signUpPost(Request $request){
+    }
+    public function signUpPost(Request $request)
+    {
         $request->validate([
             'username' => 'required|string|max:50|unique:users,username',
             'email' => 'required|string|email|max:255|unique:users,email',
@@ -62,13 +66,22 @@ class RecipeController extends Controller
         return redirect()->route('page');
     }
     //หน้าrecipe
-    public function recipe(){
-        $recipes = RecipeModel::all();
-        return view('users.recipe',compact('recipes'));
+    public function recipe()
+    {
+        // $recipes = RecipeModel::all();
+        // return view('users.recipe',compact('recipes'));
+
+        // สั่งให้ดึง Recipe "พร้อมกับ" ('with') เจ้าของสูตร (user)
+        // และ "นับจำนวน" ('withCount') ของ 'likers' (ชื่อฟังก์ชันที่เราตั้ง)
+        $recipes = RecipeModel::with('user')->withCount('likers')->get();
+
+        return view('users.recipe', compact('recipes'));
     }
 
-    public function page(){
-    return view('users.page');
-}
-     
+
+    public function page()
+    {
+        return view('users.page');
+    }
+
 }
