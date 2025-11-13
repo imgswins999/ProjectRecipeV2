@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Recipe;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\RecipeModel;
+
 
 
 class RecipeController extends Controller
@@ -58,9 +61,10 @@ class RecipeController extends Controller
         Auth::login($user);
         return redirect()->route('page');
     }
-
+    //หน้าrecipe
     public function recipe(){
-        return view('users.recipe');
+        $recipes = RecipeModel::all();
+        return view('users.recipe',compact('recipes'));
     }
 
     public function page(){

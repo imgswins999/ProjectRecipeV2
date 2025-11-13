@@ -10,42 +10,73 @@
                     class="search-bt">
             </div>
         </form>
+<head>
+    <meta charset="UTF-8">
+    <title>รายการอาหาร</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 30px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .card h3 {
+            margin: 8px 0 5px;
+            font-size: 18px;
+            color: #222;
+        }
+        .card p {
+            margin: 0;
+            color: #777;
+            font-size: 14px;
+        }
+     </style>
+</head>
+<body>
+    <h2>รายการอาหาร</h2>
 
-        <form method="post">
-            <div class="recipe-show">
-                <p>NEW UPDATE</p>
-                <!-- ใช้ for loop นะ -->
-                <div class="recipe-card">
-                    <div class="recipe image">
-                        <!-- สมมติไปก่อนนะ แก้ด้วย -->
-                        <img src="{{ asset(uri('https://s359.kapook.com/pagebuilder/158f4b61-fb25-4b81-bb61-3c3346acb0b4.jpg')) }}"
-                            alt="" class="recipe-image">
-                    </div>
-
-                    <div class="recipe-title">
-                        <!-- สมมติไปก่อนนะ แก้ด้วย -->
-                        <h2>ข้าวหมูแดงเจ๊เก็ต</h2>
-                    </div>
-
-                    <div class="recipe-author">
-                        <!-- สมมติไปก่อนนะ แก้ด้วย -->
-                        <h4>GET HANDSOME SUD COOL</h4>
-                    </div>
-
-                    <div class="recipe-VieweAndLike">
-                        <div class="recipe-view">
-                            <p>VIEWER:
-                            <p> <!-- สมมติไปก่อนนะ แก้ด้วย --></p>
-                            </p>
-                        </div>
-                        <div class="recipe-like">
-                            <p>LIKE:
-                            <p> <!-- สมมติไปก่อนนะ แก้ด้วย --></p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+    <div class="card-container">
+        @foreach ($recipes as $recipe)
+        <div class="card">
+            <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
+            <h3>{{ $recipe->title }}</h3>
+            <p>{{ $recipe->description }}</p>
+            <p>{{ $recipe->meal_type }}</p>
+            <p>{{ $recipe->region }}</p>
+        </div>
+        @endforeach
+    </div>
+</body>
     </div>
 @endsection
