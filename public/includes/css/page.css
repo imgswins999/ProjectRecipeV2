@@ -139,7 +139,6 @@ footer {
     gap: 10px;
     padding: 0 200px;
     box-sizing: border-box;
-
 }
 
 .card {
@@ -188,6 +187,12 @@ footer {
     margin: 0 10px 0 0;
 
 }
+.view-like-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 20px;
+}
 
 .like {
     display: flex;
@@ -204,4 +209,29 @@ footer {
 
 .recipe-title {
     margin: 5px 0 5px 0;
+}
+
+
+
+
+
+
+@media (min-width: 768px) {
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        padding: 0;
+        margin: auto;
+        
+    }
+
+    .container-recipe {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+       
+    }
+
+
 }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'RecipeShare')</title>
     <link rel="stylesheet" href="{{ asset('../includes/css/page.css') }}">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 </head>
 
@@ -32,5 +33,11 @@
         <p>© 2025 Recipe Share</p>
     </footer>
 </body>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+</script>
+<script>
+    AOS.init();
+</script>
 
 </html>

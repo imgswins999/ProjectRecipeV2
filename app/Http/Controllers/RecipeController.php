@@ -73,9 +73,37 @@ class RecipeController extends Controller
 
         // สั่งให้ดึง Recipe "พร้อมกับ" ('with') เจ้าของสูตร (user)
         // และ "นับจำนวน" ('withCount') ของ 'likers' (ชื่อฟังก์ชันที่เราตั้ง)
-        $recipes = RecipeModel::with('user')->withCount('likers')->get();
+        // $recipes = RecipeModel::with('user')
+        //     ->withCount('likers')
+        //     ->orderBy('view_count', 'desc')
+        //     ->get();
 
-        return view('users.recipe', compact('recipes'));
+        // return view('users.recipe', compact('recipes'));
+
+
+        // 1. New Update: เรียงตามวันที่สร้างล่าสุด (created_at)
+        $newRecipes = RecipeModel::with('user')
+            ->withCount('likers')
+            ->latest() // หรือ orderBy('created_at', 'desc')
+            ->take(5)  // เอาแค่ 5 อัน
+            ->get();
+
+        // 2. Popular: เรียงตามยอดวิว (view_count)
+        $popularRecipes = RecipeModel::with('user')
+            ->withCount('likers')
+            ->orderBy('view_count', 'desc')
+            ->take(5)
+            ->get();
+
+        // 3. Most Like: เรียงตามจำนวนไลก์ (likers_count)
+        $mostLikedRecipes = RecipeModel::with('user')
+            ->withCount('likers')
+            ->orderBy('likers_count', 'desc') // เรียงจากคอลัมน์นับจำนวนที่ได้จาก withCount
+            ->take(5)
+            ->get();
+
+        // ส่งตัวแปรทั้ง 3 ตัวไปหน้า View
+        return view('users.recipe', compact('newRecipes', 'popularRecipes', 'mostLikedRecipes'));
     }
 
 
