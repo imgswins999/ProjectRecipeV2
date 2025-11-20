@@ -16,6 +16,6 @@ Route::post('/signUp', [RecipeController::class, 'signUpPost'])->name('signUpPos
 // หน้า RECIPE)
 Route::get('/', [RecipeController::class, 'recipe'])->name('home');
 Route::get('/recipe', [RecipeController::class, 'recipe'])->name('recipe');
-
+Route::get('/recipe/{recipe_id}',[RecipeController::class, 'detailfood'])->name('recipe.detail');
 // logout
 Route::post('/logout', [RecipeController::class, 'logout'])->name('logout');

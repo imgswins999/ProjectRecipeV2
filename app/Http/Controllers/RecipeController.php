@@ -106,6 +106,16 @@ class RecipeController extends Controller
         return view('users.recipe', compact('newRecipes', 'popularRecipes', 'mostLikedRecipes'));
     }
 
+    public function detailfood($recipe_id)
+    {
+        $recipe = RecipeModel::findOrfail($recipe_id);
+        //เพิ่มยอด view_count ทุกครั้งที่มีคนกดเข้ามาดู
+        $recipe->increment('view_count');
+        //ส่งข้อมูลไปที่หน้า View
+        return view('users.detail', compact('recipe'));
+
+
+    }
 
 
 

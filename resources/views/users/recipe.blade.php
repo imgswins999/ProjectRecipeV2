@@ -15,6 +15,7 @@
 
         <div class="card-container" data-aos="fade-up">
             @foreach ($newRecipes as $recipe)
+            <a href="{{ route('recipe.detail',$recipe->recipe_id) }}">
                 <div class="card">
                     <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
                     <h3 class="recipe-title">{{ $recipe->title }}</h3>
@@ -33,6 +34,7 @@
                         </div>
                     </div>
                 </div>
+               </a>
             @endforeach
         </div>
 
@@ -41,6 +43,7 @@
 
         <div class="card-container" data-aos="fade-up">
             @foreach ($popularRecipes as $recipe)
+           <a href="{{ route('recipe.detail',$recipe->recipe_id) }}">
                 <div class="card">
                     <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
                     <h3 class="recipe-title">{{ $recipe->title }}</h3>
@@ -59,6 +62,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
             @endforeach
         </div>
 
@@ -67,6 +71,7 @@
 
         <div class="card-container" data-aos="fade-up">
             @foreach ($mostLikedRecipes as $recipe)
+            <a href="{{ route('recipe.detail',$recipe->recipe_id) }}">
                 <div class="card">
                     <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
                     <h3 class="recipe-title">{{ $recipe->title }}</h3>
@@ -85,6 +90,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
             @endforeach
         </div>
     </div>

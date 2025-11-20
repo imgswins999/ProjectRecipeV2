@@ -11,6 +11,7 @@ class RecipeModel extends Model
     use HasFactory;
     protected $table = 'recipes';
 
+
     protected $fillable = [
         'title',
         'description',
@@ -18,7 +19,7 @@ class RecipeModel extends Model
         'meal_type',
         'region'
     ];
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'recipe_id';
     public function user()
     {
         /**
