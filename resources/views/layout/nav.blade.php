@@ -11,20 +11,42 @@
 </head>
 
 <body>
+    @guest
+        <nav class="navbar">
+            <div class="nav-link">
+                <li><a href="#">RECIPE</a></li>
+                <li><a href="#">POPULAR</a></li>
+                <li><a href="#">CATEGORY</a></li>
+            </div>
 
-    <nav class="navbar">
-        <div class="nav-link">
-            <li><a href="#">RECIPE</a></li>
-            <li><a href="#">POPULAR</a></li>
-            <li><a href="#">CATEGORY</a></li>
-        </div>
+            <div class="nav-login">
+                <li><a href="{{ route('signIn') }}">LOGIN</a></li>
+                <li><a href="{{ route('signUp') }}">REGISTER</a></li>
+            </div>
+        </nav>
+    @endguest
 
-        <div class="nav-login">
-            <li><a href="#">LOGIN</a></li>
-            <li><a href="#">REGISTER</a></li>
-        </div>
-    </nav>
+    @auth
+        <nav class="navbar">
+            <div class="nav-link">
+                <li><a href="#">RECIPE</a></li>
+                <li><a href="#">POPULAR</a></li>
+                <li><a href="#">CATEGORY</a></li>
+            </div>
 
+            <div class="nav-login">
+                <li><a href="#">WRITING</a></li>
+                <li><a href="#">HISTORY</a></li>
+                <li><a href="#">PROFILE</a></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="text-btn">LOGOUT</button>
+                    </form>
+                </li>
+            </div>
+        </nav>
+    @endauth
     <main>
         @yield('content')
     </main>
