@@ -23,7 +23,7 @@
                     <p>EMAIL</p>
                     <input type="email" name="email" id="email" required placeholder="email" class="input-signUp">
 
-                    <p style="margin-top:20px;" >USERNAME</p>
+                    <p style="margin-top:20px;">USERNAME</p>
                     <input type="text" name="username" id="username" required placeholder="username"
                         class="input-signUp">
                 </div>
@@ -33,6 +33,7 @@
                     <p>PASSWORD</p>
                     <input type="password" name="password" id="password" required placeholder="password"
                         class="input-signUp">
+                    <p style="margin-top:20px">CONFIRM PASSWORD</p>
                     <input type="password" name="password_confirmation" id="password_confirmation" required
                         placeholder="Confirm Password" class="input-signUp">
                 </div>

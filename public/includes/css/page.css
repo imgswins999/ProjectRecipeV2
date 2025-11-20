@@ -187,7 +187,8 @@ footer {
     margin: 0 10px 0 0;
 
 }
-.view-like-box{
+
+.view-like-box {
     display: flex;
     flex-direction: row;
     justify-content: end;
@@ -212,7 +213,30 @@ footer {
 }
 
 
+.text-btn {
+    background: none;
+    /* ลบพื้นหลังสีเทา/ขาว */
+    border: none;
+    /* ลบขอบปุ่ม */
+    padding: 0;
+    /* ลบช่องว่างในปุ่ม */
+    margin: 0;
+    color: white;
+    /* สีตัวอักษร (แก้ตามธีมเว็บคุณ) */
+    font-family: inherit;
+    /* ใช้ฟอนต์เดียวกับเมนูอื่น */
+    font-size: inherit;
+    /* ขนาดเท่ากับเมนูอื่น */
+    cursor: pointer;
+    /* ให้เมาส์เป็นรูปมือตอนชี้ */
 
+}
+
+.text-btn:hover {
+    color: #FFC15E;
+    text-decoration: underline #FFC15E;
+    text-underline-offset: 20px;
+}
 
 
 
@@ -223,14 +247,14 @@ footer {
         gap: 10px;
         padding: 0;
         margin: auto;
-        
+
     }
 
     .container-recipe {
         display: flex;
         flex-direction: column;
         justify-content: center;
-       
+
     }
 
 

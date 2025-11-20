@@ -2,50 +2,55 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    public $timestamps = false;
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    // 1. ระบุชื่อตารางให้ชัดเจน
     protected $table = 'users';
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+
+    // 🔥 2. ระบุ Primary Key ให้ตรงกับฐานข้อมูล (สำคัญมาก!)
+    protected $primaryKey = 'user_id';
+
+    // 🔥 3. ปิด Timestamps อัตโนมัติ เพราะตาราง users คุณไม่มี updated_at
+    public $timestamps = false;
+
+    // ถ้าต้องการใช้แค่ created_at อย่างเดียว ให้เปิดบรรทัดล่างนี้แทน
+    // const CREATED_AT = 'created_at';
+    // const UPDATED_AT = null;
+
     protected $fillable = [
         'username',
         'email',
-        'password'
+        'password',
+        'display_name', // เพิ่มตาม DB
+        'bio',          // เพิ่มตาม DB
+        'profile_image_url',
+        'role',
     ];
-   
-    
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password_hash' => 'hashed', 
+            'password' => 'hashed',
         ];
+    }
+
+    // ความสัมพันธ์กับ Recipe
+    public function recipes()
+    {
+        // user_id แรกคือ FK ในตาราง recipes
+        // user_id ที่สองคือ PK ในตาราง users
+        return $this->hasMany(RecipeModel::class, 'user_id', 'user_id');
     }
 }

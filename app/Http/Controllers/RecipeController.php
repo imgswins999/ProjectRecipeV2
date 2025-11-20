@@ -37,7 +37,8 @@ class RecipeController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended(route('page'));
+
+            return redirect()->route('recipe');
         }
 
         return back()->with("error", "username or email หรือ password ไม่ถูกต้อง");
@@ -63,23 +64,22 @@ class RecipeController extends Controller
         ]);
 
         Auth::login($user);
-        return redirect()->route('page');
+        return redirect()->route('signIn');
+    }
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // 1. เอา User ออกจากระบบ
+
+        $request->session()->invalidate(); // 2. เคลียร์ Session เก่า
+        $request->session()->regenerateToken(); // 3. สร้าง Token ใหม่ป้องกัน CSRF
+
+        return redirect()->route('home'); // 4. ส่งกลับไปหน้าแรก
     }
     //หน้าrecipe
     public function recipe()
     {
-        // $recipes = RecipeModel::all();
-        // return view('users.recipe',compact('recipes'));
-
-        // สั่งให้ดึง Recipe "พร้อมกับ" ('with') เจ้าของสูตร (user)
-        // และ "นับจำนวน" ('withCount') ของ 'likers' (ชื่อฟังก์ชันที่เราตั้ง)
-        // $recipes = RecipeModel::with('user')
-        //     ->withCount('likers')
-        //     ->orderBy('view_count', 'desc')
-        //     ->get();
-
-        // return view('users.recipe', compact('recipes'));
-
 
         // 1. New Update: เรียงตามวันที่สร้างล่าสุด (created_at)
         $newRecipes = RecipeModel::with('user')
@@ -107,9 +107,6 @@ class RecipeController extends Controller
     }
 
 
-    public function page()
-    {
-        return view('users.page');
-    }
+
 
 }
