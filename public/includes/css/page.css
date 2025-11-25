@@ -141,6 +141,11 @@ footer {
     box-sizing: border-box;
 }
 
+.card-container a {
+    text-decoration: none;
+    /* คำสั่งนี้จะลบเส้นใต้ออก */
+}
+
 .card {
     width: min-content;
     height: 400px;
@@ -151,6 +156,7 @@ footer {
     background-color: rgba(46, 47, 48, 0.685);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+
     /* เพิ่ม transition เพื่อให้เอฟเฟกต์นุ่มนวล */
 }
 
@@ -210,6 +216,7 @@ footer {
 
 .recipe-title {
     margin: 5px 0 5px 0;
+
 }
 
 
@@ -236,6 +243,132 @@ footer {
     color: #FFC15E;
     text-decoration: underline #FFC15E;
     text-underline-offset: 20px;
+}
+
+/*  */
+
+
+/*  */
+/* detail page */
+
+.head-detail-container {
+    padding: 20px 40px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.082);
+    margin: 0 200px 0 200px;
+    border-radius: 15px;
+    font-family: "Krub", sans-serif;
+    height: min-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+
+}
+
+.detail-all-description {
+    color: white;
+}
+
+.frist-description,
+.second-description,
+.third-description p {
+    font-size: 20px;
+}
+
+.second-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.third-description {
+    display: flex;
+    flex-direction: row;
+}
+
+.third-description .view-like-box {
+    margin-left: auto;
+}
+
+
+.head-image {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.tab-headers {
+    box-sizing: border-box;
+    margin: 30px 0 0 200px;
+    color: white;
+    font-size: 25px;
+
+}
+
+.tab-headers span {
+    margin-right: 10px;
+
+}
+
+
+.tab-content-container {
+    padding: 20px 40px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.082);
+    margin: 0 200px 0 200px;
+    border-radius: 15px;
+    font-family: "Krub", sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.ingredient-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 2;
+}
+
+.ingredients-header span {
+    margin: 0 100px;
+    font-size: 20px;
+    
+}
+
+.ingredient-name{
+    margin-top: 20px;
+}
+.name-col {
+ 
+    font-size: 18px;
+}
+.ratio{
+    margin-top: 20px;
+}
+.ratio-col {
+   
+    font-size: 18px;
+}
+
+/* ซ่อนเนื้อหาของแท็บทั้งหมดโดยค่าเริ่มต้น */
+.tab-content {
+    display: none;
+}
+
+/* แสดงเนื้อหาของแท็บที่มีคลาส 'active' เท่านั้น */
+.tab-content.active {
+    display: block;
+}
+
+/* ทำให้แท็บที่ถูกเลือกมีสไตล์ที่แตกต่าง (เช่น เส้นใต้สีส้ม) */
+.tab-link.active {
+    border-bottom: 2px solid orange;
+    color: #FFC15E;
+    /* หรือตามสไตล์ที่คุณต้องการ */
 }
 
 
