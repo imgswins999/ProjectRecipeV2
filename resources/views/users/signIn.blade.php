@@ -22,7 +22,7 @@
                 
                 <!-- เรียกใช้errorที่เขีบยไว้ในหน้าcontroller -->
                 @if (session('error'))
-                <div style="color: red; text-align:center; margin: bottom 1px;">
+                <div class="text-error">
                     {{ session('error') }}
                 </div>
                 @endif

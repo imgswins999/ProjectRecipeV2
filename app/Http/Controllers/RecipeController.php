@@ -41,7 +41,7 @@ class RecipeController extends Controller
             return redirect()->route('recipe');
         }
 
-        return back()->with("error", "username or email หรือ password ไม่ถูกต้อง");
+        return back()->with("error", "Username or email or password is incorrect.");
     }
 
     //SignUp Form
