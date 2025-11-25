@@ -19,6 +19,13 @@
                 <div class="imageLogo">
                     <img src="{{asset('includes/images/logo4.png')}}" alt="" width="400px">
                 </div>
+                
+                <!-- เรียกใช้errorที่เขีบยไว้ในหน้าcontroller -->
+                @if (session('error'))
+                <div style="color: red; text-align:center; margin: bottom 1px;">
+                    {{ session('error') }}
+                </div>
+                @endif
 
                 <div class="username-box">
                     <p>USERNAME</p>
