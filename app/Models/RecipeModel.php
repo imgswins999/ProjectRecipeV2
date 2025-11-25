@@ -32,8 +32,7 @@ class RecipeModel extends Model
 
     public function likers()
     {
-        // โค้ดเดิม:
-        // return $this->belongsToMany(User::class, 'likes', 'recipe_id', 'user_id');
+
 
         // ✅ โค้ดใหม่ (ระบุ Key ให้ครบ):
         return $this->belongsToMany(
@@ -44,6 +43,11 @@ class RecipeModel extends Model
             'recipe_id',  // 4. Primary Key ของ Model ปัจจุบัน (RecipeModel)
             'user_id'     // 5. Primary Key ของ Model ที่มาเชื่อม (User)
         );
+    }
+
+    public function ingredientsList()
+    {
+        return $this->hasMany(RecipeIngredient::class, 'recipe_id', 'recipe_id');
     }
 
 }
