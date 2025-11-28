@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\RecipeModel;
+use App\Models\Like;
 
 
 
@@ -117,6 +118,42 @@ class RecipeController extends Controller
 
     }
 
+    //ทำไลค์
+    public function like($recipe_id)
+    {
+       // 1. ตรวจสอบผู้ใช้
+        $user = Auth::user();
+
+        // 1.1 ถ้าไม่ได้ล็อกอิน ให้ Redirect ไปหน้าล็อกอิน/home
+        if (!$user) {
+            // ใช้ route('signIn') แทน route('recipe') ตามชื่อ Route ของคุณ
+            return redirect()->route('signIn')->with('error', 'กรุณาเข้าสู่ระบบก่อนกดไลค์');
+        }
+
+        // 2. หา Recipe ตาม ID
+        $recipe = RecipeModel::findOrFail($recipe_id);
+
+        // 3. เช็คสถานะการไลค์ (ใช้ Query Builder โดยตรงเพื่อให้ง่ายต่อการ delete)
+        $isLiked = Like::where('user_id', $user->user_id)
+                       ->where('recipe_id', $recipe->recipe_id)
+                       ->exists();
+
+        if ($isLiked) {
+            // 4. ถ้าไลค์แล้ว: ลบรายการไลค์ (Unlike)
+            Like::where('user_id', $user->user_id)
+                ->where('recipe_id', $recipe->recipe_id)
+                ->delete();
+        } else {
+            // 5. ถ้ายังไม่ไลค์: สร้างรายการไลค์ใหม่ (Like)
+            // ส่งค่า Foreign Key ทั้งสองตัวอย่างชัดเจนเพื่อป้องกัน Error
+            Like::create([
+                'user_id' => $user->user_id,
+                'recipe_id' => $recipe->recipe_id
+            ]);
+        }
+        // 6. Redirect กลับไปยังหน้าที่ผู้ใช้เพิ่งกด
+        return redirect()->route('recipe');
+    }
 
 
 }

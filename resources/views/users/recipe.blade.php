@@ -28,10 +28,19 @@
                         <div class="viewer">
                             <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
                         </div>
+                        <form action="{{ route('like',$recipe->recipe_id) }}" method="POST">
+                        @csrf
                         <div class="like">
-                            <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
-                            <p>{{$recipe->likers->count()}}</p>
+                            <button type="submit" class="like-button">
+                                @if (auth()->check() && $recipe->isLikedBy(auth()->user()))
+                                <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
+                                @else
+                                <img src="{{ asset('includes/images/unlike.png') }}" alt="unlike" class="image-like">
+                                @endif
+                            </button>
+                            <span>{{ $recipe->likes->count() }}</span>
                         </div>
+                        </form>
                     </div>
                 </div>
                </a>
@@ -56,10 +65,19 @@
                         <div class="viewer">
                             <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
                         </div>
+                        <form action="{{ route('like',$recipe->recipe_id) }}" method="POST">
+                        @csrf
                         <div class="like">
-                            <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
-                            <p>{{$recipe->likers->count()}}</p>
+                            <button type="submit" class="like-button">
+                                @if (auth()->check() && $recipe->isLikedBy(auth()->user()))
+                                <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
+                                @else
+                                <img src="{{ asset('includes/images/unlike.png') }}" alt="unlike" class="image-like">
+                                @endif
+                            </button>
+                            <span>{{ $recipe->likes->count() }}</span>
                         </div>
+                        </form>
                     </div>
                 </div>
                 </a>
@@ -84,10 +102,19 @@
                         <div class="viewer">
                             <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
                         </div>
+                        <form action="{{ route('like',$recipe->recipe_id) }}" method="POST">
+                        @csrf
                         <div class="like">
-                            <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
-                            <p>{{$recipe->likers->count()}}</p>
+                            <button type="submit" class="like-button">
+                                @if (auth()->check() && $recipe->isLikedBy(auth()->user()))
+                                <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
+                                @else
+                                <img src="{{ asset('includes/images/unlike.png') }}" alt="unlike" class="image-like">
+                                @endif
+                            </button>
+                            <span>{{ $recipe->likes->count() }}</span>
                         </div>
+                        </form>
                     </div>
                 </div>
                 </a>

@@ -3,6 +3,8 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Like;
+use App\Models\User;
 
 class RecipeModel extends Model
 {
@@ -50,4 +52,17 @@ class RecipeModel extends Model
         return $this->hasMany(RecipeIngredient::class, 'recipe_id', 'recipe_id');
     }
 
+    //ทำไลค์
+    public function likes()
+    {
+        return $this->hasMany(Like::class,'recipe_id', 'recipe_id' );
+    }
+    //เพื่อตรวจสอบว่าผู้ใช้ปัจจุบันไลค์เมนูอาหารนี้หรือไม่
+    public function isLikedBy(?User $user)
+    {
+        if ($user === null) {
+        return false;
+    }
+       return $this->likes()->where('user_id', $user->user_id)->exists();
+    }
 }

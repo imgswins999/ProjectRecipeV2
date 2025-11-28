@@ -19,3 +19,5 @@ Route::get('/recipe', [RecipeController::class, 'recipe'])->name('recipe');
 Route::get('/recipe/{recipe_id}',[RecipeController::class, 'detailfood'])->name('recipe.detail');
 // logout
 Route::post('/logout', [RecipeController::class, 'logout'])->name('logout');
+//Like                                                                              
+Route::post('/recipe/{recipe_id}/like',[RecipeController::class,'like'])->name('like');

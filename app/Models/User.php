@@ -53,4 +53,10 @@ class User extends Authenticatable
         // user_id ที่สองคือ PK ในตาราง users
         return $this->hasMany(RecipeModel::class, 'user_id', 'user_id');
     }
+
+    //ความสัมพันธ์กับ like
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
