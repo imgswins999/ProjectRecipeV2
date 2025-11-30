@@ -6,7 +6,7 @@ html {
 }
 
 body {
-    background-image: url('../images/bgMain.png');
+    background-image: url("../images/bgMain.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -35,7 +35,6 @@ footer {
     top: 0;
     width: 100%;
     z-index: 1000;
-
 }
 
 .navbar .nav-link {
@@ -57,18 +56,17 @@ footer {
     text-decoration: none;
     font-family: "Open Sans", sans-serif;
     transition: all 0.5s ease-in-out;
-
 }
 
 .navbar .nav-link li a:hover {
-    color: #FFC15E;
-    text-decoration: underline #FFC15E;
+    color: #ffc15e;
+    text-decoration: underline #ffc15e;
     text-underline-offset: 20px;
 }
 
 .nav-link li a:focus {
-    color: #FFC15E;
-    text-decoration: underline #FFC15E;
+    color: #ffc15e;
+    text-decoration: underline #ffc15e;
     text-underline-offset: 20px;
 }
 
@@ -81,20 +79,16 @@ footer {
 }
 
 .navbar .nav-login li a:hover {
-    color: #FFC15E;
-    text-decoration: underline #FFC15E;
+    color: #ffc15e;
+    text-decoration: underline #ffc15e;
     text-underline-offset: 20px;
-
 }
 
 .navbar .nav-login li a:focus {
-    color: #FFC15E;
-    text-decoration: underline #FFC15E;
+    color: #ffc15e;
+    text-decoration: underline #ffc15e;
     text-underline-offset: 20px;
-
 }
-
-
 
 /* recipe page*/
 .tap-text {
@@ -130,7 +124,6 @@ footer {
     border: none;
     outline: none;
     gap: 10px;
-
 }
 
 .card-container {
@@ -156,11 +149,9 @@ footer {
     background-color: rgba(46, 47, 48, 0.685);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+    display: grid;
     /* เพิ่ม transition เพื่อให้เอฟเฟกต์นุ่มนวล */
 }
-
-
 
 .card:hover {
     transform: translateY(-5px);
@@ -177,7 +168,6 @@ footer {
     margin: auto;
     object-fit: cover;
     box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.15);
-
 }
 
 .author {
@@ -191,14 +181,22 @@ footer {
     height: 30px;
     border-radius: 50%;
     margin: 0 10px 0 0;
-
 }
 
 .view-like-box {
     display: flex;
     flex-direction: row;
     justify-content: end;
+    align-items: center;
     gap: 20px;
+}
+
+.like-button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
 }
 
 .like {
@@ -207,18 +205,19 @@ footer {
     align-items: center;
 }
 
-.like .image-like {
-    width: 20px;
-    height: 20px;
-    margin: 0 10px 0 0;
+.count-like {
+    font-size: 20px;
+}
 
+.like .image-like {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 0;
 }
 
 .recipe-title {
     margin: 5px 0 5px 0;
-
 }
-
 
 .text-btn {
     background: none;
@@ -236,17 +235,15 @@ footer {
     /* ขนาดเท่ากับเมนูอื่น */
     cursor: pointer;
     /* ให้เมาส์เป็นรูปมือตอนชี้ */
-
 }
 
 .text-btn:hover {
-    color: #FFC15E;
-    text-decoration: underline #FFC15E;
+    color: #ffc15e;
+    text-decoration: underline #ffc15e;
     text-underline-offset: 20px;
 }
 
 /*  */
-
 
 /*  */
 /* detail page */
@@ -263,7 +260,6 @@ footer {
     flex-direction: row;
     justify-content: center;
     gap: 20px;
-
 }
 
 .detail-all-description {
@@ -292,7 +288,6 @@ footer {
     margin-left: auto;
 }
 
-
 .head-image {
     width: 350px;
     height: 350px;
@@ -305,19 +300,16 @@ footer {
     margin: 30px 0 0 200px;
     color: white;
     font-size: 25px;
-
 }
 
 .tab-headers span {
     margin-right: 10px;
-
 }
-
 
 .tab-content-container {
     padding: 20px 40px;
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.082);
+    background-color: rgba(67, 66, 66, 0.786);
     margin: 0 200px 0 200px;
     border-radius: 15px;
     font-family: "Krub", sans-serif;
@@ -336,21 +328,21 @@ footer {
 .ingredients-header span {
     margin: 0 100px;
     font-size: 20px;
-    
 }
 
-.ingredient-name{
+.ingredient-name {
     margin-top: 20px;
 }
+
 .name-col {
- 
     font-size: 18px;
 }
-.ratio{
+
+.ratio {
     margin-top: 20px;
 }
+
 .ratio-col {
-   
     font-size: 18px;
 }
 
@@ -367,11 +359,235 @@ footer {
 /* ทำให้แท็บที่ถูกเลือกมีสไตล์ที่แตกต่าง (เช่น เส้นใต้สีส้ม) */
 .tab-link.active {
     border-bottom: 2px solid orange;
-    color: #FFC15E;
+    color: #ffc15e;
     /* หรือตามสไตล์ที่คุณต้องการ */
 }
 
+.text-procedure {
+    font-size: 20px;
+    line-height: 2;
+}
 
+
+/* comment tab */
+/* Container หลักที่แบ่งซ้ายขวา */
+.comment-layout-container {
+    display: flex;
+    gap: 40px;
+    /* ระยะห่างระหว่าง 2 คอลัมน์ */
+    padding: 20px 0;
+}
+
+/* --- ฝั่งซ้าย (List) --- */
+.left-comment-list {
+    flex: 6;
+    /* กินพื้นที่ 60% */
+}
+
+.comment-scroll-area {
+    max-height: 500px;
+    /* จำกัดความสูงถ้าคอมเมนต์เยอะ */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* รายการคอมเมนต์แต่ละอัน */
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    /* จัดให้ชิดด้านบน */
+    margin-bottom: 20px;
+}
+
+/* ส่วนไอคอน/รูปโปรไฟล์ */
+.comment-avatar {
+    width: 50px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ส่วนเนื้อหา */
+.comment-content {
+    flex: 1;
+}
+
+.comment-username {
+    display: block;
+    color: #fff;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    /* ตัวพิมพ์ใหญ่ทั้งหมดตามแบบ */
+    letter-spacing: 1px;
+}
+
+/* กล่องข้อความสีครีม */
+.comment-bubble {
+    background-color: #fffdf7;
+    width: 300px;
+    /* สีครีมขาว */
+    color: #333;
+    padding: 15px 20px;
+    border-radius: 8px;
+    /* มุมมน */
+    min-height: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment-bubble p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* --- ฝั่งขวา (Form) --- */
+.right-comment-form {
+    flex: 4;
+    /* กินพื้นที่ 40% */
+}
+
+.comment-header-text {
+    color: #ddd;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+/* กล่องพิมพ์ข้อความ */
+.comment-input-area {
+    width: 500px;
+    height: 200px;
+    /* ความสูงของกล่องพิมพ์ */
+    background-color: #fffdf7;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 1rem;
+    resize: none;
+    /* ห้ามย่อขยายเอง */
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    /* สำคัญ: เพื่อให้ padding ไม่ทำให้กล่องเกิน */
+}
+
+.comment-input-area:focus {
+    outline: 2px solid #dea01e;
+}
+
+/* ปุ่ม POST */
+.btn-post-comment {
+    width: 100%;
+    background-color: #d98e04;
+    /* สีส้มตามภาพ */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-post-comment:hover {
+    background-color: #b57603;
+}
+
+.guest-notice {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* ปุ่มกด "ตอบกลับ" ใต้ข้อความ */
+.btn-reply-toggle {
+    background: none;
+    border: none;
+    color: #d98e04;
+    /* สีส้ม */
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 5px 0;
+    margin-top: 2px;
+}
+
+.btn-reply-toggle:hover {
+    text-decoration: underline;
+}
+
+/* กล่องลูกคอมเมนต์ (Indent เข้าไป) */
+.replies-container {
+    margin-left: 65px;
+    /* ขยับเข้าไปทางขวา */
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    /* เส้นแนวตั้งข้างหน้า */
+    padding-left: 15px;
+    margin-top: 10px;
+}
+
+.comment-item.reply-item {
+    margin-bottom: 10px;
+}
+
+.reply-bubble {
+    background-color: #f2f2f2;
+    font-size: 0.9rem;
+    padding: 10px 15px;
+}
+
+.comment-username.sm {
+    font-size: 0.8rem;
+}
+
+/* Avatar ขนาดเล็กสำหรับ Reply */
+.comment-avatar.sm {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.avatar-img.sm,
+.default-avatar-icon.sm {
+    width: 30px;
+    height: 30px;
+}
+
+/* ฟอร์มตอบกลับที่ซ่อนอยู่ */
+.reply-form-box {
+    margin-left: 65px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.reply-input {
+    width: 100%;
+    background-color: #fffdf7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 0.9rem;
+    resize: none;
+    height: 60px;
+}
+
+.btn-send-reply {
+    background-color: #d98e04;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
 
 @media (min-width: 768px) {
     .card-container {
@@ -380,15 +596,11 @@ footer {
         gap: 10px;
         padding: 0;
         margin: auto;
-
     }
 
     .container-recipe {
         display: flex;
         flex-direction: column;
         justify-content: center;
-
     }
-
-
 }

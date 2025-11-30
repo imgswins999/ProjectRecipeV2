@@ -15,35 +15,26 @@
 
         <div class="card-container" data-aos="fade-up">
             @foreach ($newRecipes as $recipe)
-            <a href="{{ route('recipe.detail',$recipe->recipe_id) }}">
-                <div class="card">
-                    <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
-                    <h3 class="recipe-title">{{ $recipe->title }}</h3>
-                    <div class="author">
-                        <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
-                        <p>{{ $recipe->user->display_name }}</p>
-                    </div>
+                <a href="{{ route('recipe.detail', $recipe->recipe_id) }}">
+                    <div class="card">
+                        <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
+                        <h3 class="recipe-title">{{ $recipe->title }}</h3>
+                        <div class="author">
+                            <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
+                            <p>{{ $recipe->user->display_name }}</p>
+                        </div>
 
-                    <div class="view-like-box">
-                        <div class="viewer">
-                            <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
+                        <div class="view-like-box">
+                            <div class="viewer">
+                                <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
+                            </div>
+                            <div class="like">
+                                <img src="{{ asset('includes/images/rating.png') }}" alt="like" class="image-like">
+                                <p>{{$recipe->likers->count()}}</p>
+                            </div>
                         </div>
-                        <form action="{{ route('like',$recipe->recipe_id) }}" method="POST">
-                        @csrf
-                        <div class="like">
-                            <button type="submit" class="like-button">
-                                @if (auth()->check() && $recipe->isLikedBy(auth()->user()))
-                                <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
-                                @else
-                                <img src="{{ asset('includes/images/unlike.png') }}" alt="unlike" class="image-like">
-                                @endif
-                            </button>
-                            <span>{{ $recipe->likes->count() }}</span>
-                        </div>
-                        </form>
                     </div>
-                </div>
-               </a>
+                </a>
             @endforeach
         </div>
 
@@ -52,34 +43,25 @@
 
         <div class="card-container" data-aos="fade-up">
             @foreach ($popularRecipes as $recipe)
-           <a href="{{ route('recipe.detail',$recipe->recipe_id) }}">
-                <div class="card">
-                    <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
-                    <h3 class="recipe-title">{{ $recipe->title }}</h3>
-                    <div class="author">
-                        <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
-                        <p>{{ $recipe->user->display_name }}</p>
-                    </div>
+                <a href="{{ route('recipe.detail', $recipe->recipe_id) }}">
+                    <div class="card">
+                        <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
+                        <h3 class="recipe-title">{{ $recipe->title }}</h3>
+                        <div class="author">
+                            <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
+                            <p>{{ $recipe->user->display_name }}</p>
+                        </div>
 
-                    <div class="view-like-box">
-                        <div class="viewer">
-                            <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
+                        <div class="view-like-box">
+                            <div class="viewer">
+                                <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
+                            </div>
+                            <div class="like">
+                                <img src="{{ asset('includes/images/rating.png') }}" alt="like" class="image-like">
+                                <p>{{$recipe->likers->count()}}</p>
+                            </div>
                         </div>
-                        <form action="{{ route('like',$recipe->recipe_id) }}" method="POST">
-                        @csrf
-                        <div class="like">
-                            <button type="submit" class="like-button">
-                                @if (auth()->check() && $recipe->isLikedBy(auth()->user()))
-                                <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
-                                @else
-                                <img src="{{ asset('includes/images/unlike.png') }}" alt="unlike" class="image-like">
-                                @endif
-                            </button>
-                            <span>{{ $recipe->likes->count() }}</span>
-                        </div>
-                        </form>
                     </div>
-                </div>
                 </a>
             @endforeach
         </div>
@@ -89,34 +71,25 @@
 
         <div class="card-container" data-aos="fade-up">
             @foreach ($mostLikedRecipes as $recipe)
-            <a href="{{ route('recipe.detail',$recipe->recipe_id) }}">
-                <div class="card">
-                    <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
-                    <h3 class="recipe-title">{{ $recipe->title }}</h3>
-                    <div class="author">
-                        <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
-                        <p>{{ $recipe->user->display_name }}</p>
-                    </div>
+                <a href="{{ route('recipe.detail', $recipe->recipe_id) }}">
+                    <div class="card">
+                        <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
+                        <h3 class="recipe-title">{{ $recipe->title }}</h3>
+                        <div class="author">
+                            <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
+                            <p>{{ $recipe->user->display_name }}</p>
+                        </div>
 
-                    <div class="view-like-box">
-                        <div class="viewer">
-                            <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
+                        <div class="view-like-box">
+                            <div class="viewer">
+                                <p>ยอดเข้าชม : {{$recipe->view_count}}</p>
+                            </div>
+                            <div class="like">
+                                <img src="{{ asset('includes/images/rating.png') }}" alt="like" class="image-like">
+                                <p>{{$recipe->likers->count()}}</p>
+                            </div>
                         </div>
-                        <form action="{{ route('like',$recipe->recipe_id) }}" method="POST">
-                        @csrf
-                        <div class="like">
-                            <button type="submit" class="like-button">
-                                @if (auth()->check() && $recipe->isLikedBy(auth()->user()))
-                                <img src="{{ asset('includes/images/like.png') }}" alt="like" class="image-like">
-                                @else
-                                <img src="{{ asset('includes/images/unlike.png') }}" alt="unlike" class="image-like">
-                                @endif
-                            </button>
-                            <span>{{ $recipe->likes->count() }}</span>
-                        </div>
-                        </form>
                     </div>
-                </div>
                 </a>
             @endforeach
         </div>

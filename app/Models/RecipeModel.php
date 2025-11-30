@@ -55,14 +55,22 @@ class RecipeModel extends Model
     //ทำไลค์
     public function likes()
     {
-        return $this->hasMany(Like::class,'recipe_id', 'recipe_id' );
+        return $this->hasMany(Like::class, 'recipe_id', 'recipe_id');
     }
     //เพื่อตรวจสอบว่าผู้ใช้ปัจจุบันไลค์เมนูอาหารนี้หรือไม่
     public function isLikedBy(?User $user)
     {
         if ($user === null) {
-        return false;
+            return false;
+        }
+        return $this->likes()->where('user_id', $user->user_id)->exists();
     }
-       return $this->likes()->where('user_id', $user->user_id)->exists();
+
+    public function comments()
+    {
+        // เชื่อมกับตาราง comments และกรองเฉพาะที่ไม่ซ่อน + เรียงจากใหม่ไปเก่า
+        return $this->hasMany(Comment::class, 'recipe_id', 'recipe_id')
+            ->where('is_hidden', 0)
+            ->orderBy('created_at', 'desc');
     }
 }

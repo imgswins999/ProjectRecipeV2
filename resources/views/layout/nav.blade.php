@@ -19,7 +19,7 @@
     @guest
         <nav class="navbar">
             <div class="nav-link">
-                <li><a href="#">RECIPE</a></li>
+                <li><a href="{{ route('recipe') }}">RECIPE</a></li>
                 <li><a href="#">POPULAR</a></li>
                 <li><a href="#">CATEGORY</a></li>
             </div>
@@ -34,7 +34,7 @@
     @auth
         <nav class="navbar">
             <div class="nav-link">
-                <li><a href="#">RECIPE</a></li>
+                <li><a href="{{ route('recipe') }}">RECIPE</a></li>
                 <li><a href="#">POPULAR</a></li>
                 <li><a href="#">CATEGORY</a></li>
             </div>
