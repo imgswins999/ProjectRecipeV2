@@ -7,6 +7,7 @@ use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Comment; // อย่าลืม use Model
 use App\Models\User;
 use App\Models\RecipeModel;
 use App\Models\Like;
@@ -109,10 +110,20 @@ class RecipeController extends Controller
 
     public function detailfood($recipe_id)
     {
-        $recipe = RecipeModel::findOrfail($recipe_id);
-        //เพิ่มยอด view_count ทุกครั้งที่มีคนกดเข้ามาดู
+        $recipe = RecipeModel::with([
+            'ingredientsList',
+            'comments' => function ($query) {
+                // ดึงเฉพาะคอมเมนต์หลัก (ที่ไม่มีพ่อ)
+                $query->whereNull('parent_id')
+                    ->orderBy('created_at', 'desc')
+                    // และดึงลูกๆ ของมันมาด้วย (ซ้อนกัน)
+                    ->with('replies.user');
+            },
+            'comments.user' // ดึง user ของคอมเมนต์หลัก
+        ])->findOrFail($recipe_id);
+
         $recipe->increment('view_count');
-        //ส่งข้อมูลไปที่หน้า View
+
         return view('users.detail', compact('recipe'));
 
 
@@ -121,7 +132,7 @@ class RecipeController extends Controller
     //ทำไลค์
     public function like($recipe_id)
     {
-       // 1. ตรวจสอบผู้ใช้
+        // 1. ตรวจสอบผู้ใช้
         $user = Auth::user();
 
         // 1.1 ถ้าไม่ได้ล็อกอิน ให้ Redirect ไปหน้าล็อกอิน/home
@@ -135,8 +146,8 @@ class RecipeController extends Controller
 
         // 3. เช็คสถานะการไลค์ (ใช้ Query Builder โดยตรงเพื่อให้ง่ายต่อการ delete)
         $isLiked = Like::where('user_id', $user->user_id)
-                       ->where('recipe_id', $recipe->recipe_id)
-                       ->exists();
+            ->where('recipe_id', $recipe->recipe_id)
+            ->exists();
 
         if ($isLiked) {
             // 4. ถ้าไลค์แล้ว: ลบรายการไลค์ (Unlike)
@@ -152,8 +163,28 @@ class RecipeController extends Controller
             ]);
         }
         // 6. Redirect กลับไปยังหน้าที่ผู้ใช้เพิ่งกด
-        return redirect()->route('recipe');
+        return back();
+    }
+    public function storeComment(Request $request, $recipe_id)
+    {
+        // 1. ตรวจสอบข้อมูล
+        $request->validate([
+            'comment_text' => 'required|string|max:1000',
+        ]);
+
+        // 2. บันทึกข้อมูล
+        Comment::create([
+            'user_id' => auth()->id(), // เอา ID คนล็อกอินปัจจุบัน
+            'recipe_id' => $recipe_id,
+            'comment_text' => $request->comment_text,
+            'parent_id' => $request->input('parent_id') // ถ้ามีค่าส่งมาจะเป็น Reply, ถ้าไม่มีจะเป็น NULL
+        ]);
+
+        // 3. กลับไปหน้าเดิม
+        return back()->with('success', 'คอมเมนต์เรียบร้อยแล้ว');
     }
 
+
+  
 
 }

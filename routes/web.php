@@ -17,7 +17,13 @@ Route::post('/signUp', [RecipeController::class, 'signUpPost'])->name('signUpPos
 Route::get('/', [RecipeController::class, 'recipe'])->name('home');
 Route::get('/recipe', [RecipeController::class, 'recipe'])->name('recipe');
 Route::get('/recipe/{recipe_id}',[RecipeController::class, 'detailfood'])->name('recipe.detail');
+
 // logout
 Route::post('/logout', [RecipeController::class, 'logout'])->name('logout');
+
 //Like                                                                              
 Route::post('/recipe/{recipe_id}/like',[RecipeController::class,'like'])->name('like');
+
+// comment
+// Route สำหรับบันทึกคอมเมนต์ (ใช้ได้ทั้งคอมเมนต์หลักและตอบกลับ)
+Route::post('/comment/{recipe_id}', [App\Http\Controllers\RecipeController::class, 'storeComment'])->name('comment.store');
