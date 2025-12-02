@@ -184,7 +184,47 @@ class RecipeController extends Controller
         return back()->with('success', 'คอมเมนต์เรียบร้อยแล้ว');
     }
 
+    //ฟังค์ชั่นค้นหา
+    public function serchRecipe(Request $request){
+        $keyword = $request->keyword;
 
+        if(strlen($keyword)>0){
+            //เป็นตัวแปรเรียกใช้คำสั่งserchที่อยู่ในmysql
+            $keyword_wildcard = "%{$keyword}%";
+            
+            //ใช้queryเนื่องจากเราต้องการหาหลายอย่างได้
+            $newRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
+                $query->where('title','LIKE',$keyword_wildcard)
+                        // เพิ่มเงื่อนไข OR: ค้นหาในคอลัมน์ 'meal_type'
+                        ->orWhere('meal_type','LIKE',$keyword_wildcard)
+                        
+                        ->orWhere('region','LIKE',$keyword_wildcard);
+                //ใช้จำกัดจำนวนเมนอาหารที่ขึ้น        
+            })->paginate(5);
+           
+             $popularRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
+                $query->where('title','LIKE',$keyword_wildcard)
+                        
+                        ->orWhere('meal_type','LIKE',$keyword_wildcard)
+                        
+                        ->orWhere('region','LIKE',$keyword_wildcard);
+            })->paginate(5);
+            
+             $mostLikedRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
+                $query->where('title','LIKE',$keyword_wildcard)
+                        
+                        ->orWhere('meal_type','LIKE',$keyword_wildcard)
+                        
+                        ->orWhere('region','LIKE',$keyword_wildcard);
+            })->paginate(5);
+            //ถ้าเงื่อนไขข้างบนไม่มีให้แสดงเมนูอาหารอย่างอื่น
+        }else{
+             return redirect()->route('signIn')->with('error', 'ไม่พบสูตรอาหาร');
+        }
+        
+        return view('users.recipe', compact( 'newRecipes','keyword', 'popularRecipes','mostLikedRecipes'));
+    
+    }
   
 
 }

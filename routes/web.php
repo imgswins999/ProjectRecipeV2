@@ -27,3 +27,7 @@ Route::post('/recipe/{recipe_id}/like',[RecipeController::class,'like'])->name('
 // comment
 // Route สำหรับบันทึกคอมเมนต์ (ใช้ได้ทั้งคอมเมนต์หลักและตอบกลับ)
 Route::post('/comment/{recipe_id}', [App\Http\Controllers\RecipeController::class, 'storeComment'])->name('comment.store');
+
+
+//ค้นหาสูตรอาหาร
+Route::get('/search',[RecipeController::class, 'serchRecipe'])->name('search');
