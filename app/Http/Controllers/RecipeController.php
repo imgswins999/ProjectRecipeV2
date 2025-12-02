@@ -103,9 +103,11 @@ class RecipeController extends Controller
             ->orderBy('likers_count', 'desc') // เรียงจากคอลัมน์นับจำนวนที่ได้จาก withCount
             ->take(5)
             ->get();
-
+        // 4. ดึงมาทั้งหมด
+        $allRecipes = RecipeModel::with('user')
+        ->get();
         // ส่งตัวแปรทั้ง 3 ตัวไปหน้า View
-        return view('users.recipe', compact('newRecipes', 'popularRecipes', 'mostLikedRecipes'));
+        return view('users.recipe', compact('newRecipes', 'popularRecipes', 'mostLikedRecipes','allRecipes'));
     }
 
     public function detailfood($recipe_id)
@@ -217,12 +219,22 @@ class RecipeController extends Controller
                         
                         ->orWhere('region','LIKE',$keyword_wildcard);
             })->paginate(5);
+            
+
+             $allRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
+                $query->where('title','LIKE',$keyword_wildcard)
+                        
+                        ->orWhere('meal_type','LIKE',$keyword_wildcard)
+                        
+                        ->orWhere('region','LIKE',$keyword_wildcard);
+            })->paginate(10);
+             
             //ถ้าเงื่อนไขข้างบนไม่มีให้แสดงเมนูอาหารอย่างอื่น
         }else{
              return redirect()->route('signIn')->with('error', 'ไม่พบสูตรอาหาร');
         }
         
-        return view('users.recipe', compact( 'newRecipes','keyword', 'popularRecipes','mostLikedRecipes'));
+        return view('users.recipe', compact( 'newRecipes','keyword', 'popularRecipes','mostLikedRecipes','allRecipes'));
     
     }
   
