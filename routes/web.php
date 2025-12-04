@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\PopularController;
 use Illuminate\Support\Facades\Route;
 
 // SignIn Form
@@ -31,3 +32,7 @@ Route::post('/comment/{recipe_id}', [App\Http\Controllers\RecipeController::clas
 
 //ค้นหาสูตรอาหาร
 Route::get('/search',[RecipeController::class, 'serchRecipe'])->name('search');
+
+
+//popular
+Route::get('/popular', [PopularController::class, 'view_popular'])->name('popular');

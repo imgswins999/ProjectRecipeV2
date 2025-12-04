@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Like;
 use App\Models\User;
 
+
 class RecipeModel extends Model
 {
     //
@@ -72,5 +73,10 @@ class RecipeModel extends Model
         return $this->hasMany(Comment::class, 'recipe_id', 'recipe_id')
             ->where('is_hidden', 0)
             ->orderBy('created_at', 'desc');
+    }
+    //กำหนดความสัมพันธ์forekey ให้ตัวสูตรอาหารมียอดวิวได้หลายครั้ง
+    public function views()
+    {
+        return $this->hasMany(RecipeView::class,'recipe_id','recipe_id');
     }
 }

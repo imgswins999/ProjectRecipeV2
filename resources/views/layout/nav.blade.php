@@ -20,7 +20,7 @@
         <nav class="navbar">
             <div class="nav-link">
                 <li><a href="{{ route('recipe') }}">RECIPE</a></li>
-                <li><a href="#">POPULAR</a></li>
+                <li><a href="{{ route('popular') }}">POPULAR</a></li>
                 <li><a href="#">CATEGORY</a></li>
             </div>
 
@@ -35,7 +35,7 @@
         <nav class="navbar">
             <div class="nav-link">
                 <li><a href="{{ route('recipe') }}">RECIPE</a></li>
-                <li><a href="#">POPULAR</a></li>
+                <li><a href="{{ route('popular') }}">POPULAR</a></li>
                 <li><a href="#">CATEGORY</a></li>
             </div>
 

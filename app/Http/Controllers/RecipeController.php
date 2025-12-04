@@ -11,6 +11,8 @@ use App\Models\Comment; // อย่าลืม use Model
 use App\Models\User;
 use App\Models\RecipeModel;
 use App\Models\Like;
+use App\Models\RecipeView;
+use Carbon\Carbon; //ใช้กำหนดเวลา
 
 
 
@@ -123,9 +125,15 @@ class RecipeController extends Controller
             },
             'comments.user' // ดึง user ของคอมเมนต์หลัก
         ])->findOrFail($recipe_id);
-
-        $recipe->increment('view_count');
-
+        
+        // A. บันทึกในตาราง recipe_views (สำหรับการนับยอดวิวรายวัน/รายเดือน)
+        $recipe->views()->create([
+        'viewed_at' => Carbon::now(), // บันทึกวันที่และเวลาปัจจุบัน
+        ]);
+    
+        // B. เพิ่มยอดวิวสะสมในคอลัมน์ view_count ของตาราง recipes (สำหรับ All-Time Popular)
+         $recipe->increment('view_count');
+       
         return view('users.detail', compact('recipe'));
 
 
@@ -238,5 +246,7 @@ class RecipeController extends Controller
     
     }
   
+    
 
+   
 }
