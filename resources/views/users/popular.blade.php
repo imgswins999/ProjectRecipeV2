@@ -37,7 +37,7 @@
         </div>
 
         <div class="row-popular">
-            @forelse ($popularRecipes as $recipe)
+            @foreach ($popularRecipes as $recipe )
                 <div class="popular-card">
                     <div class="card">
                         {{-- ลิงก์ไปยังหน้ารายละเอียดเพื่อกระตุ้นการนับวิว --}}
@@ -62,9 +62,7 @@
                         </div>
                     </div>
                 </div>
-            @empty
-                <p>ไม่พบสูตรอาหารยอดนิยมในช่วงเวลานี้</p>
-            @endforelse
+           @endforeach
         </div>
 
 
