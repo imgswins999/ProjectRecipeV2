@@ -97,7 +97,8 @@ footer {
 /* recipe page*/
 .tap-text {
     color: white;
-    margin-left: 100px;
+    margin-left: 200px;
+    margin-top: 100px;
 }
 
 .tap-text-all {
@@ -612,6 +613,57 @@ footer {
     font-size: 0.8rem;
 }
 
+
+/*POPULAR PAGE  */
+.container-popular {
+    width: 100%;
+}
+
+.filter-buttons {
+    border-bottom: #ffffff solid 2px;
+    padding: 20px 300px;
+    margin: auto;
+    width: max-content;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    
+
+    a {
+        color: white;
+        text-decoration: none;
+        font-size: 25px;
+        transition: all 0.2s ease;
+    }
+
+    a:hover {
+        color: #d98e04;
+
+    }
+
+}
+
+.filter-buttons .btn.active {
+    color: #d98e04;
+}
+
+
+.row-popular {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    justify-content: center;
+    width: max-content;
+    margin: auto;
+}
+
+.popular-card .card {
+    margin: 30px 10px;
+}
+
+
+
 @media (min-width: 768px) {
     .card-container {
         display: grid;
@@ -621,12 +673,15 @@ footer {
         margin: auto;
     }
 
-}
 
-.container-recipe {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    .container-recipe {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+
+    }
+
 
 
 }
