@@ -41,7 +41,6 @@ class PopularController extends Controller
         // 3. ดึงข้อมูลพร้อม Pagination
         $popularRecipes = $recipesQuery
             ->with('user')
-            ->withCount('likers')
             ->paginate(10); 
 
         return view('users.popular', [
