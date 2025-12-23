@@ -19,7 +19,6 @@ class RecipeModel extends Model
         'title',
         'description',
         'image_url',
-        'meal_type',
         'region'
     ];
     protected $primaryKey = 'recipe_id';
@@ -79,4 +78,15 @@ class RecipeModel extends Model
     {
         return $this->hasMany(RecipeView::class,'recipe_id','recipe_id');
     }
+
+        public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
+
+    public function region()
+        {
+            return $this->belongsTo(Region::class,'region_id','region_id');
+        }
+    
 }

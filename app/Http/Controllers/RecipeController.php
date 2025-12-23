@@ -115,6 +115,7 @@ class RecipeController extends Controller
     public function detailfood($recipe_id)
     {
         $recipe = RecipeModel::with([
+            'category',
             'ingredientsList',
             'comments' => function ($query) {
                 // ดึงเฉพาะคอมเมนต์หลัก (ที่ไม่มีพ่อ)
@@ -133,8 +134,9 @@ class RecipeController extends Controller
     
         // B. เพิ่มยอดวิวสะสมในคอลัมน์ view_count ของตาราง recipes (สำหรับ All-Time Popular)
          $recipe->increment('view_count');
+        
        
-        return view('users.detail', compact('recipe'));
+        return view('users.detail', compact('recipe',));
 
 
     }
@@ -206,7 +208,7 @@ class RecipeController extends Controller
             $newRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
                 $query->where('title','LIKE',$keyword_wildcard)
                         // เพิ่มเงื่อนไข OR: ค้นหาในคอลัมน์ 'meal_type'
-                        ->orWhere('meal_type','LIKE',$keyword_wildcard)
+                        ->orWhere('category_id','LIKE',$keyword_wildcard)
                         
                         ->orWhere('region','LIKE',$keyword_wildcard);
                 //ใช้จำกัดจำนวนเมนอาหารที่ขึ้น        
@@ -215,7 +217,7 @@ class RecipeController extends Controller
              $popularRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
                 $query->where('title','LIKE',$keyword_wildcard)
                         
-                        ->orWhere('meal_type','LIKE',$keyword_wildcard)
+                        ->orWhere('category_id','LIKE',$keyword_wildcard)
                         
                         ->orWhere('region','LIKE',$keyword_wildcard);
             })->paginate(5);
@@ -223,7 +225,7 @@ class RecipeController extends Controller
              $mostLikedRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
                 $query->where('title','LIKE',$keyword_wildcard)
                         
-                        ->orWhere('meal_type','LIKE',$keyword_wildcard)
+                        ->orWhere('category_id','LIKE',$keyword_wildcard)
                         
                         ->orWhere('region','LIKE',$keyword_wildcard);
             })->paginate(5);
@@ -232,7 +234,7 @@ class RecipeController extends Controller
              $allRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
                 $query->where('title','LIKE',$keyword_wildcard)
                         
-                        ->orWhere('meal_type','LIKE',$keyword_wildcard)
+                        ->orWhere('category_id','LIKE',$keyword_wildcard)
                         
                         ->orWhere('region','LIKE',$keyword_wildcard);
             })->paginate(10);

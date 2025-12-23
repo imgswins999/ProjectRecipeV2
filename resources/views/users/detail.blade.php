@@ -9,8 +9,8 @@
             <div class="detail-all-description">
                 <div class="frist-description">
                     <h1>{{$recipe->title}}</h1>
-                    <p>Meal Type : {{$recipe->meal_type}}</p>
-                    <p>Region / Culture : {{$recipe->region}}</p>
+                    <p>Meal Type : {{$recipe->category->category_name}}</p>
+                    <p>Region / Culture : {{$recipe->region->region_name}}</p>
                 </div>
                 <div class="second-description">
                     <p>{{$recipe->description}}</p>
