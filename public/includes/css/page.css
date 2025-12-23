@@ -628,7 +628,7 @@ footer {
     display: flex;
     flex-direction: row;
     gap: 20px;
-    
+
 
     a {
         color: white;
@@ -662,6 +662,62 @@ footer {
     margin: 30px 10px;
 }
 
+
+/*  */
+/*  */
+/* Category Page */
+.container-category {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.row-category {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    justify-content: center;
+    width: max-content;
+    margin: auto;
+
+}
+
+.category-card {
+    margin: 10px;
+}
+
+.form-select {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 50px;
+    border-style: none;
+    padding-left: 20px;
+
+}
+
+.search-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+
+}
+
+.search-bt-category {
+    border-style: none;
+    background-color: #dea01e;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    align-items: center;
+    border-radius: 100%;
+
+}
 
 
 @media (min-width: 768px) {
