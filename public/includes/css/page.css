@@ -720,6 +720,321 @@ footer {
 }
 
 
+/*  */
+/* insertRecipe */
+.insert-container {
+    background-color: rgba(46, 47, 48, 0.512);
+    border-radius: 20px;
+    padding: 50px 100px;
+    box-sizing: border-box;
+    margin: 30px auto;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.custom-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    width: 400px;
+    height: 400px;
+    border: 3px dashed #d98e04;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.custom-upload:hover {
+    background-color: #dfdede;
+    border-color: #d98e04;
+}
+
+
+.icon {
+    width: 48px;
+    height: 48px;
+    color: #d98e04;
+}
+
+
+#file-upload {
+    display: none;
+}
+
+#image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.first-insert {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.type-region-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.writing-name-input {
+    width: 620px;
+    height: 50px;
+    font-size: 24px;
+    padding-left: 10px;
+    border-radius: 5px;
+    background-color: #72727267;
+    color: #f9f9f9;
+    border-style: none;
+    margin-left: 30px;
+    transition: all 0.5s ease;
+}
+
+.writing-name-input:focus {
+    background-color: #72727290;
+    border-style: none;
+}
+
+.writing-name-input:hover {
+    background-color: #72727290;
+    border-style: none;
+}
+
+.type-input {
+    width: 300px;
+    margin-left: 30px;
+    margin-top: 30px;
+    height: 50px;
+    font-size: 24px;
+    padding-left: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #72727267;
+    border-style: none;
+    color: #acacac67;
+    transition: all 0.5s ease;
+}
+
+.type-input:hover {
+    background-color: #72727290;
+    border-style: none;
+}
+
+.type-input:focus {
+    background-color: #72727290;
+    border-style: none;
+}
+
+.des-input {
+    width: 620px;
+    height: 240px;
+    font-size: 24px;
+    margin-top: 30px;
+    padding-left: 10px;
+    border-radius: 5px;
+    background-color: #72727267;
+    color: #f9f9f9;
+    border-style: none;
+    margin-left: 30px;
+    transition: all 0.5s ease;
+    text-align: left;
+}
+
+.des-input:hover {
+    background-color: #72727290;
+    border-style: none;
+}
+
+.des-input:focus {
+    background-color: #72727290;
+    border-style: none;
+}
+
+.second-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.ingredient-input {
+    width: 500px;
+    height: 50px;
+    font-size: 24px;
+    padding-left: 10px;
+    border-radius: 5px;
+    background-color: #72727267;
+    color: #f9f9f9;
+    border-style: none;
+    margin-left: 30px;
+    transition: all 0.5s ease;
+    text-align: center;
+}
+
+.ingredient-input:hover {
+    background-color: #72727290;
+    border-style: none;
+}
+
+.ingredient-input:focus {
+    background-color: #72727290;
+    border-style: none;
+}
+
+.ratio-input {
+    width: 400px;
+    height: 50px;
+    font-size: 24px;
+    padding-left: 10px;
+    border-radius: 5px;
+    background-color: #72727267;
+    color: #f9f9f9;
+    border-style: none;
+    margin-left: 30px;
+    transition: all 0.5s ease;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: #f0f0f0;
+    /* พื้นหลังสีเทาอ่อนเพื่อให้เห็นแสงเรืองชัดขึ้น */
+}
+
+.glow-button {
+    width: 80px;
+    height: 80px;
+    margin-left: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: none;
+    background-color: #333;
+    /* สีปุ่มเทาเข้ม */
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* สร้างเงาด้านล่างและแสงเรืองสีขาวรอบปุ่ม */
+    box-shadow:
+        0 px 10px rgba(0, 0, 0, 0.3),
+        /* เงาตกกระทบด้านล่าง */
+        0 0 10px rgba(255, 255, 255, 0.8);
+    /* แสงเรืองรอบๆ */
+
+    transition: all 0.3s ease;
+}
+
+/* เอฟเฟกต์วงกลมสีขาวด้านใน (เส้นขอบในรูป) */
+.glow-button::before {
+    content: "";
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+}
+
+/* เอฟเฟกต์เมื่อเอาเมาส์ไปชี้ (Hover) */
+.glow-button:hover {
+    transform: scale(1.05);
+    /* ขยายขนาดเล็กน้อย */
+    box-shadow:
+        0 5px 10px rgba(0, 0, 0, 0.4),
+        0 0 10px rgba(255, 255, 255, 1);
+    /* แสงเรืองสว่างขึ้น */
+}
+
+/* เอฟเฟกต์เมื่อกด (Active) */
+.glow-button:active {
+    transform: scale(0.95);
+}
+
+.plus-icon {
+    font-weight: bold;
+    line-height: 1;
+    z-index: 1;
+    /* ให้อยู่เหนือเส้นขอบวงกลมสีขาว */
+}
+
+.list-box {
+    width: 90%;
+    /* หรือปรับขนาดตามต้องการ */
+    margin: 0 auto 20px auto;
+    /* จัดกึ่งกลางและเว้นระยะล่าง */
+    background-color: #72727267;
+    /* สีเทาตามรูป */
+    min-height: 200px;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    /* ให้ชื่ออยู่ซ้าย ปุ่มลบอยู่ขวา */
+    align-items: center;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    color: #333;
+}
+
+.delete-btn {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background-color: #dc2626;
+}
+
+
+.procedure-input {
+    width: 90%;
+    display: block;
+    /* เพิ่มตัวนี้เพื่อให้ margin: 0 auto ทำงานสมบูรณ์ */
+    margin: 0 auto 20px auto;
+    background-color: #72727267;
+    border-radius: 8px;
+    border: none;
+    /* แนะนำให้เพิ่ม เพื่อลบขอบขาวมาตรฐานออกถ้าไม่ต้องการ */
+    padding: 20px;
+    height: 300px;
+    color: white;
+    text-align: left;
+    resize: none;
+    font-size: 16px;
+    font-family: inherit;
+    /* ให้ฟอนต์เหมือนส่วนอื่นของเว็บ */
+    font-size: 20px;
+}
+
+
 @media (min-width: 768px) {
     .card-container {
         display: grid;

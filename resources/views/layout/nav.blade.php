@@ -36,11 +36,11 @@
             <div class="nav-link">
                 <li><a href="{{ route('recipe') }}">RECIPE</a></li>
                 <li><a href="{{ route('popular') }}">POPULAR</a></li>
-                <li><a href="{{ route('categoryfilter') }}">CATEGORY</a></li>
+                <li><a href="{{ route('category') }}">CATEGORY</a></li>
             </div>
 
             <div class="nav-login">
-                <li><a href="#">WRITING</a></li>
+                <li><a href="{{ route('writingView') }}">WRITING</a></li>
                 <li><a href="#">HISTORY</a></li>
                 <li><a href="#">PROFILE</a></li>
                 <li>

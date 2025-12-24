@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InsertRecipeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\PopularController;
 use Illuminate\Support\Facades\Route;
@@ -38,8 +39,8 @@ Route::get('/search', [RecipeController::class, 'serchRecipe'])->name('search');
 //popular
 Route::get('/popular', [PopularController::class, 'view_popular'])->name('popular');
 
-// Route::get('/category', [CategoryController::class, 'CategoryFilter'])->name('categoryfilter');
-// Route::get('/category/region', [CategoryController::class, 'RegionFilter'])->name('RegionFilter');
-
-
+// Category
 Route::get('/category', [CategoryController::class, 'search'])->name('category');
+
+// Writing View Page
+Route::get('/writingView',[InsertRecipeController::class,'writingView'])->name('writingView');
