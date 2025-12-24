@@ -21,7 +21,7 @@
             <div class="nav-link">
                 <li><a href="{{ route('recipe') }}">RECIPE</a></li>
                 <li><a href="{{ route('popular') }}">POPULAR</a></li>
-                <li><a href="{{ route('categoryfilter') }}">CATEGORY</a></li>
+                <li><a href="{{ route('category') }}">CATEGORY</a></li>
             </div>
 
             <div class="nav-login">
