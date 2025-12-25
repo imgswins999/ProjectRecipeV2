@@ -43,4 +43,7 @@ Route::get('/popular', [PopularController::class, 'view_popular'])->name('popula
 Route::get('/category', [CategoryController::class, 'search'])->name('category');
 
 // Writing View Page
-Route::get('/writingView',[InsertRecipeController::class,'writingView'])->name('writingView');
+Route::get('/writingView', [InsertRecipeController::class, 'writingView'])->name('writingView');
+
+// ลบสองบรรทัดสุดท้ายของเดิมออก แล้วเปลี่ยนเป็นบรรทัดนี้บรรทัดเดียว
+Route::post('/recipes/save', [InsertRecipeController::class, 'store'])->name('recipes.store');

@@ -29,15 +29,21 @@
                 <div class="type-region-container">
                     <!-- ปรเภท -->
                     <div class="type-container">
-                        <select name="" id="" class="type-input">
+                        <select name="category_id" id="category_id" class="type-input">
                             <option value="" disabled selected>เลือกประเภทของอาหาร</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat->category_id }}">{{ $cat->category_name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <!-- ประเทษ -->
                     <div class="region-container">
-                        <select name="" id="" class="type-input">
+                        <select name="region_id" id="region_id" class="type-input">
                             <option value="" disabled selected>ประเทศ</option>
+                            @foreach($regions as $reg)
+                                <option value="{{ $reg->region_id }}">{{ $reg->region_name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -56,7 +62,10 @@
                 <input type="text" id="ing-input" placeholder="วัตถุดิบ" class="ingredient-input">
             </div>
             <div class="ratio-container">
-                <input type="text" id="ratio-input" placeholder="อัตราส่วน ex. 1 กรัม / 2 ช้อนชา" class="ratio-input">
+                <input type="number" step="0.01" id="amount-input" placeholder="จำนวน" class="ratio-input">
+            </div>
+            <div class="unit-container">
+                <input type="text" id="unit-input" placeholder="หน่วย (เช่น กรัม)" class="ratio-input">
             </div>
             <button type="button" id="add-btn" class="glow-button">
                 <span class="plus-icon">+</span>
@@ -76,7 +85,7 @@
 
         <div class="action-buttons">
             <button type="button" class="btn cancel">CANCEL</button>
-            <button type="button" class="btn post">POST</button>
+            <button type="button" class="btn post" >POST</button>
         </div>
     </div>
 
@@ -121,71 +130,140 @@
     </style>
 
     <script>
+        // ส่วนจัดการรูปภาพ
         const fileInput = document.getElementById('file-upload');
         const imagePreview = document.getElementById('image-preview');
         const placeholder = document.getElementById('upload-placeholder');
 
         fileInput.addEventListener('change', function () {
-            const file = this.files[0]; // ดึงไฟล์ที่เลือกออกมา
-
+            const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
-
-                // เมื่ออ่านไฟล์เสร็จ
                 reader.onload = function (e) {
-                    imagePreview.src = e.target.result; // ใส่ URL ของรูปใน src
-                    imagePreview.style.display = 'block'; // แสดงรูป
-                    placeholder.style.display = 'none'; // ซ่อนไอคอน
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    placeholder.style.display = 'none';
                 }
-
-                reader.readAsDataURL(file); // สั่งให้อ่านไฟล์เป็น Data URL
+                reader.readAsDataURL(file);
             }
         });
 
-        // 
-        // 
-        // 1. ดึงตัวละคร (Element) มาจากหน้าเว็บ
+        // ส่วนจัดการเพิ่มวัตถุดิบลงรายการ
         const ingInput = document.getElementById('ing-input');
-        const ratioInput = document.getElementById('ratio-input');
+        const amountInput = document.getElementById('amount-input');
+        const unitInput = document.getElementById('unit-input');
         const addBtn = document.getElementById('add-btn');
         const listContainer = document.getElementById('list-container');
         const emptyMsg = document.getElementById('empty-msg');
 
-        // 2. สั่งให้ปุ่มทำงานเมื่อถูกคลิก
         addBtn.addEventListener('click', function () {
-            const ingredient = ingInput.value.trim(); // ดึงค่าวัตถุดิบ
-            const ratio = ratioInput.value.trim();    // ดึงค่าอัตราส่วน
+            const ingredient = ingInput.value.trim();
+            const amount = amountInput.value.trim();
+            const unit = unitInput.value.trim();
 
-            // ตรวจสอบว่ากรอกข้อมูลครบไหม
-            if (ingredient === "" || ratio === "") {
-                alert("กรุณากรอกข้อมูลให้ครบทั้ง 2 ช่อง");
+            if (!ingredient || !amount || !unit) {
+                alert("กรุณากรอกให้ครบทั้ง วัตถุดิบ, จำนวน และหน่วย");
                 return;
             }
 
-            // ซ่อนข้อความ "ยังไม่มีรายการ" ถ้ามี
             if (emptyMsg) {
                 emptyMsg.style.display = 'none';
             }
 
-            // 3. สร้างก้อน HTML รายการใหม่ (List Item)
             const newItem = document.createElement('div');
             newItem.classList.add('list-item');
+            // ตกแต่ง list-item ให้ดูเป็นระเบียบ (สไตล์ชั่วคราวเพื่อให้ปุ่มลบอยู่ขวาสุด)
+            newItem.style = "display:flex; justify-content:space-between; align-items:center; background:#f4f4f4; padding:10px; border-radius:8px; margin-bottom:10px; color:#333;";
 
-            // ใส่เนื้อหาข้างใน (ชื่อวัตถุดิบ + อัตราส่วน + ปุ่มลบ)
+            newItem.setAttribute('data-name', ingredient);
+            newItem.setAttribute('data-amount', amount);
+            newItem.setAttribute('data-unit', unit);
+
             newItem.innerHTML = `
-                                                <span><strong>${ingredient}</strong> : ${ratio}</span>
-                                                <button class="delete-btn" onclick="this.parentElement.remove()">ลบ</button>
-                                            `;
+                                <span><strong>${ingredient}</strong> : ${amount} ${unit}</span>
+                                <button type="button" class="delete-btn" style="background:#ff4d4d; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;" onclick="this.parentElement.remove(); if(document.querySelectorAll('.list-item').length === 0) document.getElementById('empty-msg').style.display='block';">ลบ</button>
+                            `;
 
-            // 4. เอาไปแปะใส่ในกล่องรายการ
             listContainer.appendChild(newItem);
 
-            // 5. ล้างค่าในช่องกรอกให้ว่าง เตรียมรับค่าใหม่
+            // ล้างค่าในช่องกรอก
             ingInput.value = '';
-            ratioInput.value = '';
-
-            // โฟกัสกลับไปที่ช่องแรกเพื่อให้พิมพ์ต่อได้เลย
+            amountInput.value = '';
+            unitInput.value = '';
             ingInput.focus();
+        });
+
+        // ส่วนปุ่ม POST สำหรับส่งข้อมูลเข้าฐานข้อมูล
+        document.querySelector('.btn.post').addEventListener('click', function () {
+            // 1. ตรวจสอบว่ากรอกหัวข้อสูตรอาหารหรือยัง
+            const title = document.querySelector('.writing-name-input').value.trim();
+            if (!title) {
+                alert("กรุณาใส่ชื่อสูตรอาหาร");
+                return;
+            }
+
+            // 2. รวบรวมข้อมูลวัตถุดิบจาก list-item ทั้งหมด
+            const ingredientData = [];
+            const items = document.querySelectorAll('.list-item');
+
+            if (items.length === 0) {
+                alert("กรุณาเพิ่มวัตถุดิบอย่างน้อย 1 รายการ");
+                return;
+            }
+
+            items.forEach(item => {
+                ingredientData.push({
+                    name: item.getAttribute('data-name'),
+                    amount: item.getAttribute('data-amount'),
+                    unit: item.getAttribute('data-unit')
+                });
+            });
+
+            // 3. เตรียมส่งข้อมูลแบบ FormData (รองรับไฟล์รูปภาพ)
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('description', document.querySelector('.des-input').value);
+            formData.append('instructions', document.querySelector('.procedure-input').value);
+            formData.append('category_id', document.getElementById('category_id').value);
+            formData.append('region_id', document.getElementById('region_id').value);
+
+            // ส่งวัตถุดิบเป็น JSON String เพื่อไปถอดรหัสใน Controller
+            formData.append('ingredients_json', JSON.stringify(ingredientData));
+
+            if (fileInput.files[0]) {
+                formData.append('image', fileInput.files[0]);
+            }
+
+            // 4. ส่งไปที่ Backend
+            // หมายเหตุ: ต้องตรวจสอบใน routes/web.php ว่ามี ->name('recipes.store') หรือยัง
+            fetch("{{ route('recipes.store') }}", {
+                method: "POST",
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                body: formData
+            })
+                .then(async response => {
+                    const resData = await response.json();
+                    if (response.ok && resData.success) {
+                        alert("บันทึกสูตรอาหารเรียบร้อย!");
+                        window.location.href = "/recipe "; // เปลี่ยนเป็น Path ของหน้ารวมสูตรอาหารของคุณ
+                    } else {
+                        alert("เกิดข้อผิดพลาด: " + (resData.message || "ไม่สามารถบันทึกได้"));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้");
+                });
+        });
+
+        // ปุ่ม CANCEL สำหรับล้างข้อมูลทั้งหมด
+        document.querySelector('.btn.cancel').addEventListener('click', function () {
+            if (confirm("ต้องการยกเลิกการเขียนสูตรอาหารใช่หรือไม่? ข้อมูลจะถูกล้างทั้งหมด")) {
+                location.reload();
+            }
         });
     </script>
 @endsection
