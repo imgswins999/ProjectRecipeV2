@@ -107,9 +107,9 @@ class RecipeController extends Controller
             ->get();
         // 4. ดึงมาทั้งหมด
         $allRecipes = RecipeModel::with('user')
-        ->get();
+            ->get();
         // ส่งตัวแปรทั้ง 3 ตัวไปหน้า View
-        return view('users.recipe', compact('newRecipes', 'popularRecipes', 'mostLikedRecipes','allRecipes'));
+        return view('users.recipe', compact('newRecipes', 'popularRecipes', 'mostLikedRecipes', 'allRecipes'));
     }
 
     public function detailfood($recipe_id)
@@ -126,17 +126,17 @@ class RecipeController extends Controller
             },
             'comments.user' // ดึง user ของคอมเมนต์หลัก
         ])->findOrFail($recipe_id);
-        
+
         // A. บันทึกในตาราง recipe_views (สำหรับการนับยอดวิวรายวัน/รายเดือน)
         $recipe->views()->create([
-        'viewed_at' => Carbon::now(), // บันทึกวันที่และเวลาปัจจุบัน
+            'viewed_at' => Carbon::now(), // บันทึกวันที่และเวลาปัจจุบัน
         ]);
-    
+
         // B. เพิ่มยอดวิวสะสมในคอลัมน์ view_count ของตาราง recipes (สำหรับ All-Time Popular)
-         $recipe->increment('view_count');
-        
-       
-        return view('users.detail', compact('recipe',));
+        $recipe->increment('view_count');
+
+
+        return view('users.detail', compact('recipe', ));
 
 
     }
@@ -197,58 +197,61 @@ class RecipeController extends Controller
     }
 
     //ฟังค์ชั่นค้นหา
-    public function serchRecipe(Request $request){
+    public function serchRecipe(Request $request)
+    {
         $keyword = $request->keyword;
 
-        if(strlen($keyword)>0){
+        if (strlen($keyword) > 0) {
             //เป็นตัวแปรเรียกใช้คำสั่งserchที่อยู่ในmysql
             $keyword_wildcard = "%{$keyword}%";
-            
+
             //ใช้queryเนื่องจากเราต้องการหาหลายอย่างได้
-            $newRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
-                $query->where('title','LIKE',$keyword_wildcard)
-                        // เพิ่มเงื่อนไข OR: ค้นหาในคอลัมน์ 'meal_type'
-                        ->orWhere('category_id','LIKE',$keyword_wildcard)
-                        
-                        ->orWhere('region','LIKE',$keyword_wildcard);
+            $newRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard) {
+                $query->where('title', 'LIKE', $keyword_wildcard)
+                    // เพิ่มเงื่อนไข OR: ค้นหาในคอลัมน์ 'meal_type'
+                    ->orWhere('category_id', 'LIKE', $keyword_wildcard)
+
+                    ->orWhere('region', 'LIKE', $keyword_wildcard);
                 //ใช้จำกัดจำนวนเมนอาหารที่ขึ้น        
             })->paginate(5);
-           
-             $popularRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
-                $query->where('title','LIKE',$keyword_wildcard)
-                        
-                        ->orWhere('category_id','LIKE',$keyword_wildcard)
-                        
-                        ->orWhere('region','LIKE',$keyword_wildcard);
-            })->paginate(5);
-            
-             $mostLikedRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
-                $query->where('title','LIKE',$keyword_wildcard)
-                        
-                        ->orWhere('category_id','LIKE',$keyword_wildcard)
-                        
-                        ->orWhere('region','LIKE',$keyword_wildcard);
-            })->paginate(5);
-            
 
-             $allRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard){
-                $query->where('title','LIKE',$keyword_wildcard)
-                        
-                        ->orWhere('category_id','LIKE',$keyword_wildcard)
-                        
-                        ->orWhere('region','LIKE',$keyword_wildcard);
+            $popularRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard) {
+                $query->where('title', 'LIKE', $keyword_wildcard)
+
+                    ->orWhere('category_id', 'LIKE', $keyword_wildcard)
+
+                    ->orWhere('region', 'LIKE', $keyword_wildcard);
+            })->paginate(5);
+
+            $mostLikedRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard) {
+                $query->where('title', 'LIKE', $keyword_wildcard)
+
+                    ->orWhere('category_id', 'LIKE', $keyword_wildcard)
+
+                    ->orWhere('region', 'LIKE', $keyword_wildcard);
+            })->paginate(5);
+
+
+            $allRecipes = RecipeModel::where(function ($query) use ($keyword_wildcard) {
+                $query->where('title', 'LIKE', $keyword_wildcard)
+
+                    ->orWhere('category_id', 'LIKE', $keyword_wildcard)
+
+                    ->orWhere('region', 'LIKE', $keyword_wildcard);
             })->paginate(10);
-             
+
             //ถ้าเงื่อนไขข้างบนไม่มีให้แสดงเมนูอาหารอย่างอื่น
-        }else{
-             return redirect()->route('signIn')->with('error', 'ไม่พบสูตรอาหาร');
+        } else {
+            return redirect()->route('signIn')->with('error', 'ไม่พบสูตรอาหาร');
         }
-        
-        return view('users.recipe', compact( 'newRecipes','keyword', 'popularRecipes','mostLikedRecipes','allRecipes'));
-    
+
+        return view('users.recipe', compact('newRecipes', 'keyword', 'popularRecipes', 'mostLikedRecipes', 'allRecipes'));
+
     }
-  
-    
+
+    // RecipeController.php
+
 
    
+
 }
