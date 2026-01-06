@@ -14,6 +14,7 @@ class ProfileController extends Controller
     {
 
         $recipes = RecipeModel::with('user')
+            ->withCount('likers')
             ->get();
         // ดึงข้อมูล User พร้อมนับจำนวน Follower/Following
         $user = User::withCount(['followers', 'followings'])->findOrFail($id);
