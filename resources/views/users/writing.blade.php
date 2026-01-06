@@ -85,7 +85,7 @@
 
         <div class="action-buttons">
             <button type="button" class="btn cancel">CANCEL</button>
-            <button type="button" class="btn post" >POST</button>
+            <button type="button" class="btn post">POST</button>
         </div>
     </div>
 
@@ -127,6 +127,16 @@
         .btn.post:hover {
             background-color: #57a05b;
         }
+
+        option {
+            color: #000000;
+            background-color: #ffffff;
+
+        }
+        select {
+            color: #333;
+        }
+      
     </style>
 
     <script>
@@ -180,9 +190,9 @@
             newItem.setAttribute('data-unit', unit);
 
             newItem.innerHTML = `
-                                <span><strong>${ingredient}</strong> : ${amount} ${unit}</span>
-                                <button type="button" class="delete-btn" style="background:#ff4d4d; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;" onclick="this.parentElement.remove(); if(document.querySelectorAll('.list-item').length === 0) document.getElementById('empty-msg').style.display='block';">ลบ</button>
-                            `;
+                                        <span><strong>${ingredient}</strong> : ${amount} ${unit}</span>
+                                        <button type="button" class="delete-btn" style="background:#ff4d4d; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;" onclick="this.parentElement.remove(); if(document.querySelectorAll('.list-item').length === 0) document.getElementById('empty-msg').style.display='block';">ลบ</button>
+                                    `;
 
             listContainer.appendChild(newItem);
 

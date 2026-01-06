@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InsertRecipeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\PopularController;
 use Illuminate\Support\Facades\Route;
@@ -47,3 +48,7 @@ Route::get('/writingView', [InsertRecipeController::class, 'writingView'])->name
 
 // ลบสองบรรทัดสุดท้ายของเดิมออก แล้วเปลี่ยนเป็นบรรทัดนี้บรรทัดเดียว
 Route::post('/recipes/save', [InsertRecipeController::class, 'store'])->name('recipes.store');
+
+// profile
+// ตัวอย่างการตั้งชื่อใน web.php
+Route::get('/profile/{id}', [ProfileController::class,'profile'])->name('profile.show');

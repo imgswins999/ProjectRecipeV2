@@ -42,11 +42,11 @@
             <div class="nav-login">
                 <li><a href="{{ route('writingView') }}">WRITING</a></li>
                 <li><a href="#">HISTORY</a></li>
-                <li><a href="#">PROFILE</a></li>
+               <li><a href="{{ route('profile.show', ['id' => auth()->user()->user_id]) }}">PROFILE</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                         @csrf
-                        <button type="submit" class="text-btn">LOGOUT</button>
+                        <button type="submit" class="text-btn">LOGOUT</button>s
                     </form>
                 </li>
             </div>
