@@ -57,6 +57,15 @@ class User extends Authenticatable
     //ความสัมพันธ์กับ like
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(RecipeModel::class, 'likes', 'user_id', 'recipe_id');
     }
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+    }
+
 }
