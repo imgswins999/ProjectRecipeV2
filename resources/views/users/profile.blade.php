@@ -40,7 +40,11 @@
                                             <p>{{$recipes->created_at}}</p>
                                         </div>
                                     </div>
-                                    <button type="submit" class="bt-delete">Delete</button>
+                                   <form action="{{ route('edit', $recipes->recipe_id) }}" method="post">
+                                         @csrf
+                                    <button type="submit" class="bt-delete">กูจะแก้ไขมันเอง
+                                       
+                                    </button></form>
                                 </div>
                             </a>
                         @endforeach

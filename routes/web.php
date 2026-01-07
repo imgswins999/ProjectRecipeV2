@@ -5,6 +5,7 @@ use App\Http\Controllers\InsertRecipeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\PopularController;
+use App\Http\Controllers\EditController;
 use Illuminate\Support\Facades\Route;
 
 // SignIn Form
@@ -45,6 +46,8 @@ Route::get('/category', [CategoryController::class, 'search'])->name('category')
 
 // Writing View Page
 Route::get('/writingView', [InsertRecipeController::class, 'writingView'])->name('writingView');
+
+Route::post('/edit/{recipe_id}',[EditController::class,'editView'])->name('edit');
 
 // ลบสองบรรทัดสุดท้ายของเดิมออก แล้วเปลี่ยนเป็นบรรทัดนี้บรรทัดเดียว
 Route::post('/recipes/save', [InsertRecipeController::class, 'store'])->name('recipes.store');
