@@ -40,29 +40,55 @@
                                             <p>{{$recipes->created_at}}</p>
                                         </div>
                                     </div>
-                                   <form action="{{ route('edit', $recipes->recipe_id) }}" method="post">
-                                         @csrf
-                                    <button type="submit" class="bt-delete">กูจะแก้ไขมันเอง
-                                       
-                                    </button></form>
+                                    <div class="bt-form">
+                                        <form action="{{ route('edit', $recipes->recipe_id) }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="bt-edit">แก้ไข</button>
+                                        </form>
+                                        <form action="#" method="post">
+                                            @csrf
+                                            <button type="submit" class="bt-del">ลบ</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </a>
                         @endforeach
                     </div>
 
-                
+
                 </div>
             </div>
         </div>
     </div>
 
     <style>
-        .bt-delete{
-           margin: 0 0 0 auto;
-           background-color: #f66d6dff;
-           height: 50px;
-           width: 100px;
+        .bt-del {
+            background-color: #fe7762ff;
+            height: 50px;
+            width: 100px;
+            border-radius: 10px;
         }
+
+        .bt-edit {
+            background-color: #fecd62ff;
+            height: 50px;
+            width: 100px;
+            border-radius: 10px;
+
+        }
+
+        .bt-form {
+            margin-left: auto;
+            /* ดันกลุ่มปุ่มทั้งหมดไปชิดขวาสุด */
+            display: flex;
+            flex-direction: column;
+            /* เรียงปุ่มเป็นแนวตั้ง */
+            gap: 10px;
+            /* ระยะห่างระหว่างปุ่มแก้ไขและลบ */
+            justify-content: center;
+        }
+
+
         .profile-container {
             font-family: "Krub", sans-serif;
             font-style: normal;
@@ -73,14 +99,16 @@
             margin: 50px auto;
             padding: 20px 50px;
             border-radius: 10px;
-           
+
         }
+
         .profile-nav li {
             list-style: none;
             font-size: 30px;
             margin-top: 20px;
             color: whitesmoke;
         }
+
         .profile {
             display: flex;
             flex-direction: row;
@@ -96,23 +124,27 @@
         .profile-content {
             display: flex;
             flex-direction: row;
-            
+
         }
-        hr{
+
+        hr {
             margin: 0 50px;
         }
-        .pro-edit{
+
+        .pro-edit {
             margin: 0 auto 0 0;
         }
+
         .pro-edit a {
             text-decoration: none;
         }
-        
-        .my-recipe{
+
+        .my-recipe {
             display: flex;
             flex-direction: column;
             justify-content: left;
         }
+
         .my-recipe-card {
             margin-bottom: 20px;
             background-color: rgba(33, 33, 33, 1);
@@ -137,7 +169,8 @@
             object-fit: cover;
             border-radius: 10px;
         }
-        .my-recipe-info{
+
+        .my-recipe-info {
             color: whitesmoke;
         }
     </style>

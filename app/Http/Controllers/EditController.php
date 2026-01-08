@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RecipeModel;
@@ -18,52 +17,69 @@ class EditController extends Controller
             'category',
             'ingredientsList',
             'region'
-        
+
         ])->findOrFail($recipe_id);
 
         // ส่งข้อมูลไปที่ view
-        return view('users.edit', compact('categories', 'regions','recipe'));
+        return view('users.edit', compact('categories', 'regions', 'recipe'));
     }
 
-    public function store(Request $request)
+ 
+
+    // ... ภายใน InsertRecipeController หรือ Controller ที่คุณใช้งาน
+
+    public function update(Request $request, $recipe_id)
     {
+        // 1. เริ่ม Transaction เพื่อความปลอดภัยของข้อมูล
+        return DB::transaction(function () use ($request, $recipe_id) {
 
-        return DB::transaction(function () use ($request) {
-            // --- ส่วนจัดการไฟล์รูปภาพ ---
-            $imageLink = null;
+            // ดึงข้อมูลเดิมมาตรวจสอบ
+            $recipe = DB::table('recipes')->where('recipe_id', $recipe_id)->first();
+            if (!$recipe) {
+                return response()->json(['success' => false, 'message' => 'ไม่พบข้อมูลสูตรอาหาร'], 404);
+            }
 
+            $image_url = $recipe->image_url; // ใช้รูปเดิมเป็นค่าเริ่มต้น
+
+            // 2. จัดการรูปภาพ (ถ้ามีการอัปโหลดไฟล์ใหม่เข้ามา)
             if ($request->hasFile('image')) {
-                // 1. เก็บไฟล์ลงใน storage
-                $path = $request->file('image')->store('recipes', 'public');
+                // (Optional) ลบไฟล์รูปเดิมใน Storage เพื่อประหยัดพื้นที่
+                if ($recipe->image_url) {
+                    $oldPath = str_replace(asset('storage/'), '', $recipe->image_url);
+                    Storage::disk('public')->delete($oldPath);
+                }
 
-                // 2. แปลงเป็นลิงก์เต็มๆ (เช่น http://localhost:8000/storage/recipes/xxx.jpg)
-                // แล้วบันทึกลิงก์นี้ลงฐานข้อมูล
+                // บันทึกไฟล์ใหม่
+                $path = $request->file('image')->store('recipes', 'public');
                 $image_url = asset('storage/' . $path);
             }
-            // บันทึกลงตาราง recipes
-            $recipe_id = DB::table('recipes')->insertGetId([
-                'user_id' => auth()->id(),
+
+            // 3. อัปเดตตาราง recipes
+            DB::table('recipes')->where('recipe_id', $recipe_id)->update([
                 'title' => $request->title,
-               'image_url' => $image_url, // ตอนนี้ค่าใน DB จะเป็นลิงก์เต็มๆ แล้ว // บันทึกตัวแปรที่เป็นลิงก์ลงไปเลย
+                'image_url' => $image_url,
                 'description' => $request->description,
                 'instructions' => $request->instructions,
                 'category_id' => $request->category_id,
                 'region_id' => $request->region_id,
-                'ingredients' => '', // กัน Error NOT NULL ใน SQL
-                'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
-            // บันทึกลงตาราง recipe_ingredients
+            // 4. จัดการตาราง recipe_ingredients (ลบของเก่าทิ้ง แล้วเพิ่มใหม่ทั้งหมด)
+            DB::table('recipe_ingredients')->where('recipe_id', $recipe_id)->delete();
+
             $ingredients = json_decode($request->ingredients_json, true);
-            foreach ($ingredients as $ing) {
-                DB::table('recipe_ingredients')->insert([
-                    'recipe_id' => $recipe_id,
-                    'ingredient_name' => $ing['name'],
-                    'amount' => $ing['amount'],
-                    'unit' => $ing['unit']
-                ]);
+            if (!empty($ingredients)) {
+                foreach ($ingredients as $ing) {
+                    DB::table('recipe_ingredients')->insert([
+                        'recipe_id' => $recipe_id,
+                        'ingredient_name' => $ing['name'],
+                        'amount' => $ing['amount'],
+                        'unit' => $ing['unit']
+                    ]);
+                }
             }
+
             return response()->json(['success' => true]);
         });
     }

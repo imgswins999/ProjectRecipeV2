@@ -51,7 +51,7 @@ Route::post('/edit/{recipe_id}',[EditController::class,'editView'])->name('edit'
 
 // ลบสองบรรทัดสุดท้ายของเดิมออก แล้วเปลี่ยนเป็นบรรทัดนี้บรรทัดเดียว
 Route::post('/recipes/save', [InsertRecipeController::class, 'store'])->name('recipes.store');
-
+Route::post('/recipe/update/{id}', [EditController::class, 'update'])->name('recipes.update'); // ชื่อ update สำหรับบันทึก
 // profile
 // ตัวอย่างการตั้งชื่อใน web.php
 Route::get('/profile/{id}', [ProfileController::class,'profile'])->name('profile.show');
