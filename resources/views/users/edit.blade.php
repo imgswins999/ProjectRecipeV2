@@ -1,8 +1,8 @@
 @extends('layout.nav')
 @section('title', content: 'WRITING')
 @section('content')
-    <div class="insert-container">
-        <h1 style="color:white">เพิ่มสูตรอาหาร</h1>
+    <div class="edit-container">
+        <h1 style="color:white">แก้ไขสูตรอาหาร</h1>
         <div class="first-insert">
             <div class="upload-container">
                 <input type="file" id="file-upload" accept="image/*" hidden />
@@ -50,7 +50,7 @@
 
                 <!-- คำอธืบาย -->
                 <div class="des-container">
-                    <textarea class="des-input" value="{{$recipe->description}}"></textarea>
+                    <textarea class="des-input">{{$recipe->description}}</textarea>
                 </div>
             </div>
         </div>
@@ -72,11 +72,30 @@
             </button>
         </div>
 
-        <h1 style="margin-bottom:10px;color:white;margin-left:30px">รายการ</h1>
+      <h1 style="margin-bottom:10px;color:white;margin-left:30px">รายการ</h1>
 
-        <div id="list-container" class="list-box">
-            <p id="empty-msg" style="color: #888;">{{$recipe->ingredientsList}}</p>
+<div id="list-container" class="list-box">
+    <p id="empty-msg" style="color: #888; {{ $recipe->ingredientsList->count() > 0 ? 'display:none;' : '' }}">
+        ยังไม่มีรายการวัตถุดิบ
+    </p>
+
+    @foreach($recipe->ingredientsList as $ing)
+        <div class="list-item" 
+             data-name="{{ $ing->ingredient_name }}" 
+             data-amount="{{ $ing->amount }}" 
+             data-unit="{{ $ing->unit }}"
+             style="display:flex; justify-content:space-between; align-items:center; background:#f4f4f4; padding:10px; border-radius:8px; margin-bottom:10px; color:#333;">
+            
+            <span><strong>{{ $ing->ingredient_name }}</strong> : {{ $ing->amount }} {{ $ing->unit }}</span>
+            
+            <button type="button" class="delete-btn" 
+                style="background:#ff4d4d; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;" 
+                onclick="this.parentElement.remove(); if(document.querySelectorAll('.list-item').length === 0) document.getElementById('empty-msg').style.display='block';">
+                ลบ
+            </button>
         </div>
+    @endforeach
+</div>
 
         <h1 style="margin-bottom:10px;color:white;margin-left:30px">ขั้นตอนการทำ</h1>
         <div class="procedure-container">
@@ -137,9 +156,33 @@
             color: #333;
         }
       
+        .edit-container{
+                background-color: #333333a7;
+                width: 80%;
+                margin: 20px auto;
+                padding: 20px;
+                box-sizing: border-box;
+                border-radius: 10px;
+            
+        }
+        /* .second-container{
+            width: max-content%;
+            margin: 10px auto;
+        } */
     </style>
 
     <script>
+        // เพื่อให้ผู้ใช้เห็นรูปภาพเดิมก่อนที่จะเปลี่ยน
+        window.addEventListener('DOMContentLoaded', (event) => {
+    const existingImage = "{{ $recipe->image_url }}";
+    if (existingImage) {
+        imagePreview.src = existingImage;
+        imagePreview.style.display = 'block';
+        placeholder.style.display = 'none';
+    }
+});
+
+
         // ส่วนจัดการรูปภาพ
         const fileInput = document.getElementById('file-upload');
         const imagePreview = document.getElementById('image-preview');
@@ -246,7 +289,7 @@
 
             // 4. ส่งไปที่ Backend
             // หมายเหตุ: ต้องตรวจสอบใน routes/web.php ว่ามี ->name('recipes.store') หรือยัง
-            fetch("{{ route('recipes.store') }}", {
+            fetch("{{ route('recipes.update', $recipe->recipe_id) }}", {
                 method: "POST",
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
