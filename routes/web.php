@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\PopularController;
 use App\Http\Controllers\EditController;
+use App\Http\Controllers\DeleteController;
 use Illuminate\Support\Facades\Route;
 
 // SignIn Form
@@ -52,6 +53,7 @@ Route::post('/edit/{recipe_id}',[EditController::class,'editView'])->name('edit'
 // ลบสองบรรทัดสุดท้ายของเดิมออก แล้วเปลี่ยนเป็นบรรทัดนี้บรรทัดเดียว
 Route::post('/recipes/save', [InsertRecipeController::class, 'store'])->name('recipes.store');
 Route::post('/recipe/update/{id}', [EditController::class, 'update'])->name('recipes.update'); // ชื่อ update สำหรับบันทึก
+Route::post('/delete/{recipe_id}',[DeleteController::class,'delete'])->name('delete');
 // profile
 // ตัวอย่างการตั้งชื่อใน web.php
 Route::get('/profile/{id}', [ProfileController::class,'profile'])->name('profile.show');
