@@ -15,9 +15,9 @@ class DeleteController extends Controller
             DB::table('recipe_tags')->where('recipe_id', $recipe_id)->delete();
             DB::table('recipe_views')->where('recipe_id', $recipe_id)->delete();
             DB::table('viewhistory')->where('recipe_id', $recipe_id)->delete();
-            
+            DB::table('comments')->where('recipe_id',$recipe_id)->delete();
+             DB::table(table: 'likes')->where('recipe_id',$recipe_id)->delete();
             // หมายเหตุ: recipe_ingredients ไม่ต้องลบเองเพราะมี CASCADE ใน SQL แล้ว
-
             // 2. ลบข้อมูลจากตารางหลัก
             DB::table('recipes')->where('recipe_id', $recipe_id)->delete();
         });
