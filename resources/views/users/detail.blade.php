@@ -16,9 +16,16 @@
                     <p>{{$recipe->description}}</p>
                 </div>
                 <div class="third-description">
-                    <div class="author">
-                        <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
-                        <p>{{ $recipe->user->display_name }}</p>
+                   <div class="author">
+                        <a href="{{ route('user.profile', $recipe->user->user_id) }}" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                            
+                            <img src="{{ $recipe->user->profile_image_url ?? 'https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg' }}" 
+                                alt="author" 
+                                class="image_author">
+                                
+                            <p>{{ $recipe->user->display_name ?? $recipe->user->username }}</p>
+                        
+                        </a>
                     </div>
                     <div class="view-like-box">
                         <div class="viewer">

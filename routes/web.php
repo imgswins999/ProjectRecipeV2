@@ -7,6 +7,8 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\PopularController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\DeleteController;
+use App\Http\Controllers\UpdateProfileController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 // SignIn Form
@@ -57,3 +59,8 @@ Route::post('/delete/{recipe_id}',[DeleteController::class,'delete'])->name('del
 // profile
 // ตัวอย่างการตั้งชื่อใน web.php
 Route::get('/profile/{id}', [ProfileController::class,'profile'])->name('profile.show');
+// update profile
+// ในไฟล์ routes/web.php
+Route::post('/profile/update', [UpdateProfileController::class, 'updateProfile'])->name('update.profile')->middleware('auth');
+// user profile
+Route::get('/user/{id}', [UserProfileController::class, 'showUserProfile'])->name('user.profile');
