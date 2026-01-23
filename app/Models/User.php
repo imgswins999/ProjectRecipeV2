@@ -61,11 +61,37 @@ class User extends Authenticatable
     }
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id')
+            ->withPivot('created_at');
     }
     public function followings()
     {
-        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id')
+            ->withPivot('created_at');
+    }
+
+    // 1. กดติดตาม
+    public function follow(User $user)
+    {
+        // เช็คก่อนว่าตัวเองไม่ได้กดติดตามตัวเอง และยังไม่ได้ติดตามคนนี้
+        if ($this->user_id !== $user->user_id && !$this->isFollowing($user)) {
+            $this->followings()->attach($user->user_id);
+            return true;
+        }
+        return false;
+    }
+
+    // 2. ยกเลิกการติดตาม
+    public function unfollow(User $user)
+    {
+        $this->followings()->detach($user->user_id);
+        return true;
+    }
+
+    // 3. เช็คสถานะว่าติดตามคนนี้อยู่หรือไม่
+    public function isFollowing(User $user)
+    {
+        return $this->followings()->where('following_id', $user->user_id)->exists();
     }
 
 }

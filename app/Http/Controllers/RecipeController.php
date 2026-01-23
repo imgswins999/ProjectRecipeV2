@@ -135,6 +135,16 @@ class RecipeController extends Controller
         // B. เพิ่มยอดวิวสะสมในคอลัมน์ view_count ของตาราง recipes (สำหรับ All-Time Popular)
         $recipe->increment('view_count');
 
+        // --- เพิ่มส่วนประวัติการเข้าชมตรงนี้ ---
+        if (Auth::check()) {
+            // ใช้ updateOrInsert เพื่อให้สูตรที่เคยดูแล้วเด้งขึ้นมาล่าสุด (ไม่เก็บซ้ำซ้อน)
+            \DB::table('viewhistory')->updateOrInsert(
+                ['user_id' => Auth::id(), 'recipe_id' => $recipe_id],
+                ['viewed_at' => Carbon::now()]
+            );
+        }
+        // ----------------------------------
+
 
         return view('users.detail', compact('recipe', ));
 

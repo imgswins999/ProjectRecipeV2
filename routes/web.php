@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\InsertRecipeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
@@ -64,3 +66,9 @@ Route::get('/profile/{id}', [ProfileController::class,'profile'])->name('profile
 Route::post('/profile/update', [UpdateProfileController::class, 'updateProfile'])->name('update.profile')->middleware('auth');
 // user profile
 Route::get('/user/{id}', [UserProfileController::class, 'showUserProfile'])->name('user.profile');
+// follows
+Route::middleware(['auth'])->group(function () {
+    Route::post('/follow/{user_id}', [FollowController::class, 'toggleFollow'])->name('follow.toggle');
+});
+// history
+Route::get('/my-history', [HistoryController::class, 'history'])->name('history.index')->middleware('auth');
