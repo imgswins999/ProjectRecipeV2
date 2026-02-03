@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HistoryController;
@@ -52,15 +53,15 @@ Route::get('/category', [CategoryController::class, 'search'])->name('category')
 // Writing View Page
 Route::get('/writingView', [InsertRecipeController::class, 'writingView'])->name('writingView');
 
-Route::post('/edit/{recipe_id}',[EditController::class,'editView'])->name('edit');
+Route::post('/edit/{recipe_id}', [EditController::class, 'editView'])->name('edit');
 
 // ลบสองบรรทัดสุดท้ายของเดิมออก แล้วเปลี่ยนเป็นบรรทัดนี้บรรทัดเดียว
 Route::post('/recipes/save', [InsertRecipeController::class, 'store'])->name('recipes.store');
 Route::post('/recipe/update/{id}', [EditController::class, 'update'])->name('recipes.update'); // ชื่อ update สำหรับบันทึก
-Route::post('/delete/{recipe_id}',[DeleteController::class,'delete'])->name('delete');
+Route::post('/delete/{recipe_id}', [DeleteController::class, 'delete'])->name('delete');
 // profile
 // ตัวอย่างการตั้งชื่อใน web.php
-Route::get('/profile/{id}', [ProfileController::class,'profile'])->name('profile.show');
+Route::get('/profile/{id}', [ProfileController::class, 'profile'])->name('profile.show');
 // update profile
 // ในไฟล์ routes/web.php
 Route::post('/profile/update', [UpdateProfileController::class, 'updateProfile'])->name('update.profile')->middleware('auth');
@@ -72,3 +73,15 @@ Route::middleware(['auth'])->group(function () {
 });
 // history
 Route::get('/my-history', [HistoryController::class, 'history'])->name('history.index')->middleware('auth');
+
+
+
+
+Route::middleware(['auth', 'can:admin-only'])->prefix('admin')->group(function () {
+
+    // หน้า Dashboard หลัก (แสดงตาราง User และ Recipe)
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard'); // หน้าแสดงผล
+    Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy'); // ลบ User
+    Route::delete('/recipes/{id}', [AdminController::class, 'destroyRecipe'])->name('admin.recipes.destroy'); // ลบสูตร
+    Route::post('/notify/{id}', [AdminController::class, 'notifyUser'])->name('admin.notify'); // แจ้งเตือน
+});

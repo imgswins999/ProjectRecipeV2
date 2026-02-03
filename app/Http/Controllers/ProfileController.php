@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\RecipeModel;
 use App\Models\User;
+use App\Models\History;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\table;
@@ -22,6 +24,17 @@ class ProfileController extends Controller
         $recipe = $user->recipes()->where('is_hidden', 0)->latest()->get();
         // ดึงเมนูที่ User นี้ไปกด Like ไว้
         $likedRecipe = $user->likes()->get();
-        return view('users.profile', compact('user', 'recipe', 'likedRecipe', 'recipes'));
+
+        $histories = History::with('recipe.user')
+            ->where('user_id', Auth::id())
+            ->orderBy('viewed_at', 'desc')
+            ->get();
+        // --- ส่วนที่ต้องเพิ่ม: ดึงการแจ้งเตือน ---
+        $notifications = DB::table('notifications')
+            ->where('recipient_id', $user->user_id) // ดึงเฉพาะของ user คนนี้
+            ->orderBy('created_at', 'desc')        // เรียงจากใหม่ไปเก่า
+            ->get();
+
+        return view('users.profile', compact('user', 'recipe', 'likedRecipe', 'recipes', 'histories','notifications'));
     }
 }

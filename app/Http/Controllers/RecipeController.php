@@ -26,13 +26,11 @@ class RecipeController extends Controller
     }
     public function signInPost(Request $request)
     {
-
         $request->validate([
-            'login' => 'required',       // เปลี่ยนชื่อ field เป็น login ตัวเดียว รองรับทั้ง 2 แบบ
+            'login' => 'required',
             'password' => 'required'
         ]);
 
-        // เช็คว่าเป็น email หรือ username
         $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         $credentials = [
@@ -41,8 +39,17 @@ class RecipeController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
+            // --- ส่วนที่แก้ไขเพิ่มเข้ามา ---
+            $user = Auth::user();
 
+            if ($user->role === 'admin') {
+                // ถ้าเป็น admin ให้ไปหน้า dashboard ที่เราสร้างไว้
+                return redirect()->route('admin.dashboard');
+            }
+
+            // ถ้าไม่ใช่ admin (เป็น user ทั่วไป) ให้ไปหน้า recipe ปกติ
             return redirect()->route('recipe');
+            // ----------------------------
         }
 
         return back()->with("error", "Username or email or password is incorrect.");
