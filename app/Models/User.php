@@ -94,4 +94,11 @@ class User extends Authenticatable
         return $this->followings()->where('following_id', $user->user_id)->exists();
     }
 
+    public function comments()
+    {
+        // สั่งว่า User 1 คน มีได้หลาย Comment
+        // 'user_id' คือชื่อ column foreign key ในตาราง comments
+        return $this->hasMany(Comment::class, 'user_id'); 
+    }
+
 }

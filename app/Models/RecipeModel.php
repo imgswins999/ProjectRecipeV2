@@ -89,4 +89,13 @@ class RecipeModel extends Model
             return $this->belongsTo(Region::class,'region_id','region_id');
         }
     
+    public function viewHistory()
+    {
+        // 'recipe_id' ตัวแรกคือ FK ในตาราง viewhistory
+        // 'recipe_id' ตัวหลังคือ PK ในตาราง recipes
+        return $this->hasMany(History::class, 'recipe_id', 'recipe_id');
+    }
+    
+
+    
 }

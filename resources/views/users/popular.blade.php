@@ -2,13 +2,7 @@
 @section('title', 'POPULAR')
 @section('content')
     <div class="container-popular">
-        <form action="search.popular" method="get" role="search">
-            <div class="search-box">
-                <input type="text" name="keyword" class="search-input" required value="{{ $keyword ?? ''}}">
-                <input type="image" src="{{ asset('includes/images/search.png') }}" alt="Submit Button" width="20"
-                    class="search-bt">
-            </div>
-        </form>
+      
         <h1 style="color:white;text-align: center;margin-top:50px">POPUALR</h1>
         <div class="filter-buttons mb-4">
             {{-- ปุ่มยอดนิยมวันนี้ --}}

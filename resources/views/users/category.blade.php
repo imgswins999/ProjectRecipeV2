@@ -3,13 +3,6 @@
 @section('content')
     <div class="container-category">
         <div class="row"></div>
-        <form action="#" method="get" role="search">
-            <div class="search-box">
-                <input type="text" name="keyword" class="search-input" required value="{{ $keyword ?? ''}}">
-                <input type="image" src="{{ asset('includes/images/search.png') }}" alt="Submit Button" width="20"
-                    class="search-bt">
-            </div>
-        </form>
         <!-- ค้นหาหมวดหมู่ประเภทของอาหาร -->
         <div class="search-select">
             <form action="{{ route('category') }}" method="get" class="d-flex gap-2">

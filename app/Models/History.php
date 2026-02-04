@@ -33,4 +33,5 @@ class History extends Model
         // ไลค์หนึ่งอันเป็นของเมนูอันเดียว
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
+    
 }
