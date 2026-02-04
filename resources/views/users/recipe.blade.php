@@ -22,7 +22,7 @@
                             <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
                             <h3 class="recipe-title">{{ $recipe->title }}</h3>
                             <div class="author">
-                                <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
+                                <img src="{{ $recipe->user->profile_image_url ?? 'https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg'  }}" alt="author" class="image_author">
                                 <p>{{ $recipe->user->display_name }}</p>
                             </div>
 
@@ -50,7 +50,7 @@
                             <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
                             <h3 class="recipe-title">{{ $recipe->title }}</h3>
                             <div class="author">
-                                <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
+                                <img src="{{ $recipe->user->profile_image_url ?? 'https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg' }}" alt="author" class="image_author">
                                 <p>{{ $recipe->user->display_name }}</p>
                             </div>
 
@@ -78,7 +78,7 @@
                             <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
                             <h3 class="recipe-title">{{ $recipe->title }}</h3>
                             <div class="author">
-                                <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
+                                <img src="{{ $recipe->user->profile_image_url ?? 'https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg' }}" alt="author" class="image_author">
                                 <p>{{ $recipe->user->display_name }}</p>
                             </div>
 
@@ -107,7 +107,7 @@
                             <img src="{{ $recipe->image_url }}" alt="{{ $recipe->title }}">
                             <h3 class="recipe-title">{{ $recipe->title }}</h3>
                             <div class="author">
-                                <img src="{{ $recipe->user->profile_image_url }}" alt="author" class="image_author">
+                                <img src="{{ $recipe->user->profile_image_url ?? 'https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg' }}" alt="author" class="image_author">
                                 <p>{{ $recipe->user->display_name }}</p>
                             </div>
 
