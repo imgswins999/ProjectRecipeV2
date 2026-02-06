@@ -35,6 +35,7 @@ class AdminController extends Controller
 
         // Comments เป็นสิ่งที่ User สร้างเอง (HasMany) -> ลบทิ้งได้เลย ใช้ delete() ถูกแล้ว
         $user->comments()->delete();
+        $user->recipes()->delete();
 
         // Likes เป็นการเชื่อมโยงกับสูตรอาหาร (BelongsToMany) 
         // ใช้ detach() เพื่อ "เอาการกด Like ออก" (อย่าใช้ delete เพราะมันจะไปลบสูตรอาหาร)
